@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:masante228/screens/principale_page.dart';
-import 'package:masante228/screens/register.dart';
-
+//import 'package:masante228/screens/register.dart';
+/*
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -182,3 +181,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+*/

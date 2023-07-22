@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:masante228/screens/about_doctor.dart';
+import 'package:masante228/screens/authentificate/sign_in_screen.dart';
+import 'package:masante228/screens/doctor_screen.dart';
+import 'package:masante228/screens/home_screen.dart';
 import 'package:masante228/screens/login.dart';
+import 'package:masante228/screens/rendez_vous.dart';
+import 'package:masante228/screens/welcome/welcome_screen.dart';
+import 'package:masante228/utils/utils.dart';
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -30,7 +38,7 @@ class HomePage extends StatelessWidget {
               
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const LoginPage()),
+      MaterialPageRoute(builder: (context) =>    WelcomeScreen()),
     );
             },
             
@@ -39,7 +47,7 @@ class HomePage extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                   color: Color.fromARGB(255, 6, 81, 244)),
+                   color: Color.fromARGB(255, 66, 121, 237)),
                 child: const Text(" Commencer",
                     style: TextStyle(
                         color: Color.fromARGB(255, 215, 221, 226),

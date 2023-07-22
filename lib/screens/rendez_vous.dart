@@ -1,98 +1,139 @@
 import 'package:flutter/material.dart';
-import 'package:masante228/screens/prise.dart';
 
-class AppointmentScreen extends StatefulWidget {
-  const AppointmentScreen({super.key});
-
+class AppointmentForm extends StatefulWidget {
   @override
-  // ignore: library_private_types_in_public_api
-  _AppointmentScreenState createState() => _AppointmentScreenState();
+  _AppointmentFormState createState() => _AppointmentFormState();
 }
 
-class _AppointmentScreenState extends State<AppointmentScreen> {
-late DateTime selectedDate = DateTime.now();
-  TimeOfDay? selectedTime;
+class _AppointmentFormState extends State<AppointmentForm> {
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _dateController = TextEditingController();
+  TextEditingController _timeController = TextEditingController();
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 30)),
-    );
+  bool _formValid = true;
 
-    if (pickedDate != null && pickedDate != selectedDate) {
-      setState(() {
-        selectedDate = pickedDate;
-      });
-    }
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _dateController.dispose();
+    _timeController.dispose();
+    super.dispose();
   }
 
-  Future<void> _selectTime(BuildContext context) async {
-    final TimeOfDay? pickedTime = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    );
+  void _submitForm() {
+    // Réinitialiser la validation des champs
+    setState(() {
+      _formValid = true;
+    });
 
-    if (pickedTime != null && pickedTime != selectedTime) {
+    // Obtenir les valeurs des champs du formulaire
+    String name = _nameController.text.trim();
+    String email = _emailController.text.trim();
+    String phone = _phoneController.text.trim();
+    String date = _dateController.text.trim();
+    String time = _timeController.text.trim();
+
+    // Effectuer les contrôles de validation
+    if (name.isEmpty || email.isEmpty || phone.isEmpty || date.isEmpty || time.isEmpty) {
       setState(() {
-        selectedTime = pickedTime;
+        _formValid = false;
       });
+      return;
     }
+
+    // Envoyer les données à votre backend ou effectuer toute autre logique de traitement
+
+    // Réinitialiser le formulaire
+    _nameController.clear();
+    _emailController.clear();
+    _phoneController.clear();
+    _dateController.clear();
+    _timeController.clear();
+
+    // Afficher une confirmation ou effectuer une autre action après la soumission du formulaire
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Rendez-vous pris'),
+          content: Text('Votre rendez-vous a été enregistré avec succès.'),
+          actions: [
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Prise de Rendez-vous'),
+        title: Text('Prise de rendez-vous'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-              'Sélectionnez une date et une heure pour votre rendez-vous :',
-              style: TextStyle(fontSize: 16.0),
+            TextField(
+              controller: _nameController,
+              decoration: InputDecoration(
+                labelText: 'Nom',
+                errorText: !_formValid && _nameController.text.isEmpty ? 'Veuillez saisir votre nom' : null,
+              ),
+            ),
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelText: 'Email',
+                errorText: !_formValid && _emailController.text.isEmpty ? 'Veuillez saisir votre email' : null,
+              ),
+            ),
+            TextField(
+              controller: _phoneController,
+              decoration: InputDecoration(
+                labelText: 'Téléphone',
+                errorText: !_formValid && _phoneController.text.isEmpty ? 'Veuillez saisir votre numéro de téléphone' : null,
+              ),
+            ),
+            TextField(
+              controller: _dateController,
+              decoration: InputDecoration(
+                labelText: 'Date',
+                errorText: !_formValid && _dateController.text.isEmpty ? 'Veuillez saisir une date' : null,
+              ),
+            ),
+            TextField(
+              controller: _timeController,
+              decoration: InputDecoration(
+                labelText: 'Heure',
+                errorText: !_formValid && _timeController.text.isEmpty ? 'Veuillez saisir une heure' : null,
+              ),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () => _selectDate(context),
-              child: Text('Sélectionner une date'),
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () => _selectTime(context),
-              child: Text('Sélectionner une heure'),
-            ),
-            SizedBox(height: 16.0),
-            Text(
-              'Date sélectionnée : ${selectedDate}',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            SizedBox(height: 16.0),
-            Text(
-              'Heure sélectionnée : ${selectedTime}',
-              style: TextStyle(fontSize: 16.0),
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AppointmentForm(),
-                  ),
-                );
-                // Enregistrer le rendez-vous et afficher un message de confirmation
-              },
-              child: Text('Confirmer le rendez-vous'),
-              
+              onPressed: _submitForm,
+              child: Text('Prendre rendez-vous'),
             ),
           ],
         ),
       ),
     );
   }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: AppointmentForm(),
+  ));
 }
