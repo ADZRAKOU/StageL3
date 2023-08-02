@@ -29,6 +29,40 @@ class Personne {
       required this.estAssure,
       required this.typeAssurence,
       required this.estActive});
+
+      factory Personne.fromJson(Map<String, dynamic> json) => Personne(
+        nom: json["nom"],
+        prenom: json["prenom"],
+        mail: json["mail"],
+        password: json["password"], 
+        adresse: json["adresse"],
+        autreContact:json ["autreContact"],
+        contact: json ["contact"],
+        dateNaissance: json ["dateNaissance"],
+        estActive:json ["estActive"], 
+        estAssure:json ["estAssure"],
+        genre:json ["genre"],
+        role:json ["role"],
+        specialite:json['specialite'] ,
+        typeAssurence: json['typeAssurence'],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "nom": nom,
+        "prenom": prenom,
+        "mail": mail,
+        "password": password,
+        "adresse": adresse, 
+        "contact": contact,
+        "autreContact": autreContact,
+        "dateNaissance": dateNaissance,
+        "estActive": estActive,
+        "estAssure": estAssure,
+        "genre ": genre,
+        "role": role,
+        "specialite":specialite,
+      };
+
 }
 
 enum Role {
@@ -40,3 +74,13 @@ enum Role {
 }
 
 enum Genre { feminin, masculin }
+
+
+class Patient extends Personne{
+  Patient({required super.nom, required super.prenom, required super.mail, required super.password, required super.dateNaissance, required super.specialite, required super.contact, required super.autreContact, required super.adresse, required super.role, required super.genre, required super.estAssure, required super.typeAssurence, required super.estActive});
+
+}
+class Medecin extends Personne{
+  Medecin({required super.nom, required super.prenom, required super.mail, required super.password, required super.dateNaissance, required super.specialite, required super.contact, required super.autreContact, required super.adresse, required super.role, required super.genre, required super.estAssure, required super.typeAssurence, required super.estActive});
+
+}

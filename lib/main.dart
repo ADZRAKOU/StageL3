@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:masante228/screens/homepage.dart';
+import 'package:masante228/screens/splash.dart';
 import 'package:sizer/sizer.dart';
 
 import 'main2.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Masante228',
           theme: buildThemeData(),
-          home: const HomePage(),
+          home: const Splash(),
         );
       },
     );

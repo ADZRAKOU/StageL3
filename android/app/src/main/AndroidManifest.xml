@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.masante228">
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+
     <application
         android:label="masante228"
         android:name="${applicationName}"
@@ -20,7 +22,6 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
-               <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

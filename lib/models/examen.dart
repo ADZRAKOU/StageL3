@@ -1,8 +1,7 @@
-class Examen {
+class Examens {
   String nom;
   String description;
-
-  Examen({
+  Examens({
     required this.description,
     required this.nom,
   });

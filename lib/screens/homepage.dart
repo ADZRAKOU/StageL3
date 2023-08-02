@@ -8,6 +8,8 @@ import 'package:masante228/screens/rendez_vous.dart';
 import 'package:masante228/screens/welcome/welcome_screen.dart';
 import 'package:masante228/utils/utils.dart';
 
+import 'choix.dart';
+
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -38,7 +40,7 @@ class HomePage extends StatelessWidget {
               
       Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) =>    WelcomeScreen()),
+      MaterialPageRoute(builder: (context) =>  const  Choix()),
     );
             },
             
@@ -47,7 +49,7 @@ class HomePage extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                   color: Color.fromARGB(255, 66, 121, 237)),
+                   color: const Color.fromARGB(255, 66, 121, 237)),
                 child: const Text(" Commencer",
                     style: TextStyle(
                         color: Color.fromARGB(255, 215, 221, 226),

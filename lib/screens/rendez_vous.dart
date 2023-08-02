@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppointmentForm extends StatefulWidget {
+  const AppointmentForm({super.key});
+
   @override
   _AppointmentFormState createState() => _AppointmentFormState();
 }
