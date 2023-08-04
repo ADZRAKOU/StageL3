@@ -4,7 +4,6 @@ import 'package:masante228/screens/homepage.dart';
 import 'package:masante228/screens/splash.dart';
 import 'package:sizer/sizer.dart';
 
-import 'main2.dart';
 import 'utils/custom_nav_bar.dart';
 
 void main() {

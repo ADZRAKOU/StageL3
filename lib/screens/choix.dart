@@ -11,7 +11,7 @@ import 'package:masante228/utils/utils.dart';
 import 'authentificate/medecin_login.dart';
 import 'authentificate/patient_login.dart';
 import 'choix.dart';
-
+import 'connexion.dart';
 
 class Choix extends StatelessWidget {
   const Choix({super.key});
@@ -39,50 +39,44 @@ class Choix extends StatelessWidget {
           const SizedBox(height: 50),
           InkWell(
             onTap: () {
-              
-      Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) =>  const  MedecinLogin()),
-    );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MedecinLogin()),
+              );
             },
-            
             child: Ink(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                   color: const Color.fromARGB(255, 66, 121, 237)),
+                    color: const Color.fromARGB(255, 66, 121, 237)),
                 child: const Text(" Médécin ",
                     style: TextStyle(
                         color: Color.fromARGB(255, 215, 221, 226),
                         fontSize: 20,
                         fontWeight: FontWeight.bold))),
           ),
-
-
           const SizedBox(height: 50),
           InkWell(
             onTap: () {
-              
-      Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) =>  const PatientRegistrationForm ()),
-    );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const PatientRegistrationForm()),
+              );
             },
-            
             child: Ink(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                   color: const Color.fromARGB(255, 66, 121, 237)),
+                    color: const Color.fromARGB(255, 66, 121, 237)),
                 child: const Text(" Patient ",
                     style: TextStyle(
                         color: Color.fromARGB(255, 215, 221, 226),
                         fontSize: 20,
                         fontWeight: FontWeight.bold))),
           )
-
         ]),
       ),
     );

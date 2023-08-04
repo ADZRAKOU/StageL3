@@ -29,8 +29,9 @@ class Splash extends StatelessWidget {
             print(57198456524);
           }
           return;
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => CustomNavBar()));        }
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const HomePage()));
+        }
       });
     });
 
@@ -38,13 +39,13 @@ class Splash extends StatelessWidget {
         body: Column(
       children: [
         Image.asset('assets/images/logo.jpeg'),
-        const Text('Bienvenue',
-
-              style: TextStyle(
-                  color: Color.fromARGB(255, 1, 27, 71),
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold),)
-
+        const Text(
+          'Bienvenue',
+          style: TextStyle(
+              color: Color.fromARGB(255, 1, 27, 71),
+              fontSize: 30,
+              fontWeight: FontWeight.bold),
+        )
       ],
     ));
   }
