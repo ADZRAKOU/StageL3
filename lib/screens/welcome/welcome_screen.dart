@@ -1,9 +1,7 @@
 import 'package:masante228/constants.dart';
-import 'package:masante228/screens/authentificate/sign_in_screen.dart';
-import 'package:masante228/screens/authentificate/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
+/*
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
@@ -77,3 +75,4 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 }
+*/

@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/custom_nav_bar.dart';
 import 'homepage.dart';
 
 class Splash extends StatelessWidget {

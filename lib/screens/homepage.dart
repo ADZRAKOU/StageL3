@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:masante228/screens/about_doctor.dart';
-import 'package:masante228/screens/authentificate/sign_in_screen.dart';
-import 'package:masante228/screens/doctor_screen.dart';
-import 'package:masante228/screens/home_screen.dart';
 import 'package:masante228/screens/login.dart';
 import 'package:masante228/screens/rendez_vous.dart';
 import 'package:masante228/screens/welcome/welcome_screen.dart';
-import 'package:masante228/utils/utils.dart';
 
 import 'choix.dart';
 

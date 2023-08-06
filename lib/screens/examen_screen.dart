@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:masante228/utils/utils.dart';
-import 'package:masante228/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
@@ -15,7 +13,7 @@ class ExamenScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         height: 100.h,
-        decoration: kBoxDecoIndigo,
+        //decoration: kBoxDecoIndigo,
         child: const Padding(
           padding: EdgeInsets.all(10.0),
           child: SingleChildScrollView(

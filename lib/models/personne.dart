@@ -1,6 +1,5 @@
 class Personne {
-  String nom;
-  String prenom;
+  String nom;  String prenom;
   String mail;
   String password;
   DateTime dateNaissance;
@@ -77,10 +76,35 @@ enum Genre { feminin, masculin }
 
 
 class Patient extends Personne{
-  Patient({required super.nom, required super.prenom, required super.mail, required super.password, required super.dateNaissance, required super.specialite, required super.contact, required super.autreContact, required super.adresse, required super.role, required super.genre, required super.estAssure, required super.typeAssurence, required super.estActive});
+  Patient({required super.nom, required super.prenom, 
+  required super.mail, 
+  required super.password, 
+  required super.dateNaissance, 
+  required super.specialite, 
+  required super.contact, 
+  required super.autreContact, 
+  required super.adresse, 
+  required super.role, 
+  required super.genre, 
+  required super.estAssure, 
+  required super.typeAssurence, 
+  required super.estActive});
 
 }
 class Medecin extends Personne{
-  Medecin({required super.nom, required super.prenom, required super.mail, required super.password, required super.dateNaissance, required super.specialite, required super.contact, required super.autreContact, required super.adresse, required super.role, required super.genre, required super.estAssure, required super.typeAssurence, required super.estActive});
+  Medecin({required super.nom, 
+  required super.prenom, 
+  required super.mail, 
+  required super.password, 
+  required super.dateNaissance, 
+  required super.specialite, 
+  required super.contact, 
+  required super.autreContact, 
+  required super.adresse, 
+  required super.role, 
+  required super.genre, 
+  required super.estAssure, 
+  required super.typeAssurence, 
+  required super.estActive});
 
 }
