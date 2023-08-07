@@ -7,9 +7,6 @@ import 'homepage.dart';
 class Splash extends StatelessWidget {
   const Splash({Key? key}) : super(key: key);
 
-  void FirstConnexion() async {
-    // SharedPreferences first = await SharedPreferences.getInstance();
-  }
 
   @override
   Widget build(BuildContext context) {

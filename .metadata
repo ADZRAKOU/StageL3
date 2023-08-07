@@ -18,21 +18,6 @@ migration:
     - platform: android
       create_revision: 92857dd0e6878a4b3f4365a0cc420b14fad73911
       base_revision: 92857dd0e6878a4b3f4365a0cc420b14fad73911
-    - platform: ios
-      create_revision: 92857dd0e6878a4b3f4365a0cc420b14fad73911
-      base_revision: 92857dd0e6878a4b3f4365a0cc420b14fad73911
-    - platform: linux
-      create_revision: 92857dd0e6878a4b3f4365a0cc420b14fad73911
-      base_revision: 92857dd0e6878a4b3f4365a0cc420b14fad73911
-    - platform: macos
-      create_revision: 92857dd0e6878a4b3f4365a0cc420b14fad73911
-      base_revision: 92857dd0e6878a4b3f4365a0cc420b14fad73911
-    - platform: web
-      create_revision: 92857dd0e6878a4b3f4365a0cc420b14fad73911
-      base_revision: 92857dd0e6878a4b3f4365a0cc420b14fad73911
-    - platform: windows
-      create_revision: 92857dd0e6878a4b3f4365a0cc420b14fad73911
-      base_revision: 92857dd0e6878a4b3f4365a0cc420b14fad73911
 
   # User provided section
 

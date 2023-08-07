@@ -6,7 +6,7 @@ import 'package:masante228/screens/welcome/welcome_screen.dart';
 import 'authentificate/medecin_login.dart';
 import 'authentificate/patient_login.dart';
 import 'choix.dart';
-import 'connexion.dart';
+import 'loginScreen.dart';
 
 class Choix extends StatelessWidget {
   const Choix({super.key});
