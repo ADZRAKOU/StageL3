@@ -22,10 +22,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Inscription Patient'),
-        backgroundColor: Colors.blue,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
@@ -160,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
               ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Tous les champs sont valides, effectuez 
+                      // Tous les champs sont valides, effectuez
                       String email = _emailController.text;
                       String password = _passwordController.text;
                       String passwordc = _confirmPasswordController.text;

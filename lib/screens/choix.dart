@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:masante228/screens/login.dart';
 import 'package:masante228/screens/rendez_vous.dart';
 import 'package:masante228/screens/welcome/welcome_screen.dart';
 
 import 'authentificate/medecin_login.dart';
-import 'authentificate/patient_login.dart';
+import 'authentificate/signin_screen.dart';
+import 'authentificate/signup_page.dart';
 import 'choix.dart';
-import 'loginScreen.dart';
 
 class Choix extends StatelessWidget {
   const Choix({super.key});
@@ -56,8 +55,7 @@ class Choix extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const PatientRegistrationForm()),
+                MaterialPageRoute(builder: (context) => const SignUpPage()),
               );
             },
             child: Ink(

@@ -1,7 +1,10 @@
 import 'package:masante228/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-/*
+import 'package:masante228/models/personne.dart';
+import 'package:masante228/screens/authentificate/medecin_login.dart';
+import 'package:masante228/screens/authentificate/signin_screen.dart';
+
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
@@ -31,7 +34,7 @@ class WelcomeScreen extends StatelessWidget {
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SignUpScreen(),
+                          builder: (context) =>const MedecinLogin(),
                         ),
                       ),
                       style: TextButton.styleFrom(
@@ -49,19 +52,19 @@ class WelcomeScreen extends StatelessWidget {
                         onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignInScreen(),
+                              builder: (context) =>const SignInPage(),
                             )),
                         style: TextButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 36, 85, 248),
                           
                       
                           elevation: 0,
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                             side: BorderSide(color: Color.fromARGB(255, 233, 231, 228)),
 
                           ),
                         ),
-                        child: Text("Se connecter"),
+                        child: const Text("Se connecter"),
                       ),
                     ),
                   ),
@@ -75,4 +78,3 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 }
-*/
