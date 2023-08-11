@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:masante228/screens/homepage.dart';
+import 'package:masante228/screens/welcome_page.dart';
 import 'package:masante228/utils/color_utils.dart';
 import 'package:masante228/utils/path_utils.dart';
 
@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
+          context, MaterialPageRoute(builder: (context) => const WelcomePage()));
     });
     super.initState();
   }

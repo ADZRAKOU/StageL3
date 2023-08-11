@@ -36,7 +36,7 @@ class _SignInPageState extends State<SignInPage> {
               width: double.infinity,
               decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 235, 234, 234),
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
               child: Column(
@@ -56,10 +56,10 @@ class _SignInPageState extends State<SignInPage> {
                     height: 10,
                   ),
                   const Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.symmetric(vertical: 10),
                     child: InputWidget(placeholder: "Email"),
                   ),
-                  InputWidget(placeholder: "Password"),
+                  const InputWidget(placeholder: "Password"),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 25),
                     child: Center(
@@ -75,13 +75,13 @@ class _SignInPageState extends State<SignInPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 50),
-            /* InkWell(onTap: () {
+            const SizedBox(height: 30),
+            InkWell(onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const SignUpPage()),
               );
-            })*/
+            })
           ],
         ),
       ),

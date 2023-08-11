@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masante228/screens/home_screen.dart';
+import 'package:masante228/screens/dashboard.dart';
 import 'package:masante228/utils/color_utils.dart';
 import 'package:masante228/utils/path_utils.dart';
 import 'package:masante228/utils/screens_utils.dart';
@@ -7,14 +7,15 @@ import 'package:masante228/widgets/button_widget.dart';
 import 'package:masante228/widgets/input_widget.dart';
 import 'package:masante228/widgets/text_widget.dart';
 
+
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
-
 class _SignUpPageState extends State<SignUpPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,11 +33,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const TextWidget(
-                    data: "CONNEXION",
+                    data: "INSCRIPTION",
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
                   ),
@@ -48,7 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 10,
                   ),
                   const Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: EdgeInsets.symmetric(vertical: 10),
                     child: InputWidget(placeholder: "Nom"),
                   ),
                   const InputWidget(placeholder: "Prenom"),
@@ -66,10 +67,10 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             const SizedBox(height: 50),
             InkWell(onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => const HomeScreen()),
+              // );
             })
           ],
         ),

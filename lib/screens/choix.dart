@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:masante228/screens/dashboard.dart';
+import 'package:masante228/screens/home_page.dart';
 import 'package:masante228/screens/rendez_vous.dart';
 import 'package:masante228/screens/welcome/welcome_screen.dart';
 
@@ -55,7 +57,7 @@ class Choix extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SignUpPage()),
+                MaterialPageRoute(builder: (context) => const HomePage()),
               );
             },
             child: Ink(

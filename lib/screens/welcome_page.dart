@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:masante228/screens/rendez_vous.dart';
-import 'package:masante228/screens/welcome/welcome_screen.dart';
-
 import 'choix.dart';
 
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class WelcomePage extends StatelessWidget {
+  const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
