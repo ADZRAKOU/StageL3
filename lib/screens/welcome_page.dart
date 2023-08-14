@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'choix.dart';
 
-
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
@@ -12,7 +11,7 @@ class WelcomePage extends StatelessWidget {
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Image.asset(
-            'assets/images/logo.jpeg',
+            'assets/images/logo.png',
             //height: 400,
           ),
           Container(
@@ -28,19 +27,17 @@ class WelcomePage extends StatelessWidget {
           const SizedBox(height: 50),
           InkWell(
             onTap: () {
-              
-      Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) =>  const  Choix()),
-    );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Choix()),
+              );
             },
-            
             child: Ink(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
-                   color: const Color.fromARGB(255, 66, 121, 237)),
+                    color: const Color.fromARGB(255, 66, 121, 237)),
                 child: const Text(" Commencer",
                     style: TextStyle(
                         color: Color.fromARGB(255, 215, 221, 226),

@@ -18,7 +18,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kWhiteColor,
+      backgroundColor: kPrimaryColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -26,7 +26,8 @@ class _SignInPageState extends State<SignInPage> {
               height: kSize(context).height / 3.2,
               child: Center(
                 child: Image.asset(
-                  kImagePath(imageName: "logo.jpeg"),
+                  kImagePath(imageName: "logo.png"),
+                  color: kWhiteColor,
                 ),
               ),
             ),
@@ -34,16 +35,16 @@ class _SignInPageState extends State<SignInPage> {
               height: kSize(context).height - kSize(context).height / 3.2,
               padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
               width: double.infinity,
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 235, 234, 234),
-                  borderRadius: BorderRadius.only(
+              decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const TextWidget(
+                  TextWidget(
                     data: "CONNEXION",
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
@@ -55,17 +56,23 @@ class _SignInPageState extends State<SignInPage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: InputWidget(placeholder: "Email"),
                   ),
-                  const InputWidget(placeholder: "Password"),
+                  InputWidget(placeholder: "Password"),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 25),
                     child: Center(
                         child: ButtonWidget(
                             width: kSize(context).width / 2,
-                            child: "Se connecter")),
+                            child: "Se connecter",
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => const SignUpPage()));
+                            })),
                   ),
                   Center(
                       child: TextWidget(
@@ -74,14 +81,7 @@ class _SignInPageState extends State<SignInPage> {
                   )),
                 ],
               ),
-            ),
-            const SizedBox(height: 30),
-            InkWell(onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SignUpPage()),
-              );
-            })
+            )
           ],
         ),
       ),

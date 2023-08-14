@@ -5,7 +5,7 @@ import 'package:masante228/widgets/bottom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, });
 
   @override
   Widget build(BuildContext context) {

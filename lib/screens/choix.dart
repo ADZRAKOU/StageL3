@@ -19,7 +19,7 @@ class Choix extends StatelessWidget {
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Image.asset(
-            'assets/images/logo.jpeg',
+            'assets/images/logo.png',
             //height: 400,
           ),
           Container(
@@ -57,7 +57,7 @@ class Choix extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
+                MaterialPageRoute(builder: (context) => const SignInPage()),
               );
             },
             child: Ink(

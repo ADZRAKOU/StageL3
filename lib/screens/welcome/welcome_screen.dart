@@ -14,10 +14,9 @@ class WelcomeScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(
-            'assets/images/logo.jpeg'),
-            //height: 400,
-                    SafeArea(
+          Image.asset('assets/images/logo.png'),
+          //height: 400,
+          SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: Column(
@@ -34,7 +33,7 @@ class WelcomeScreen extends StatelessWidget {
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>const MedecinLogin(),
+                          builder: (context) => const MedecinLogin(),
                         ),
                       ),
                       style: TextButton.styleFrom(
@@ -52,16 +51,14 @@ class WelcomeScreen extends StatelessWidget {
                         onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>const SignInPage(),
+                              builder: (context) => const SignInPage(),
                             )),
                         style: TextButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 36, 85, 248),
-                          
-                      
                           elevation: 0,
                           shape: const RoundedRectangleBorder(
-                            side: BorderSide(color: Color.fromARGB(255, 233, 231, 228)),
-
+                            side: BorderSide(
+                                color: Color.fromARGB(255, 233, 231, 228)),
                           ),
                         ),
                         child: const Text("Se connecter"),

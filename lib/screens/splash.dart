@@ -18,8 +18,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const WelcomePage()));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const WelcomePage()));
     });
     super.initState();
   }
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: kWhiteColor,
       body: Center(
         child: Image.asset(
-          kImagePath(imageName: "logo.jpeg"),
+          kImagePath(imageName: "logo.png"),
         ),
       ),
     );
