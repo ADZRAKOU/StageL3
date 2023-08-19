@@ -52,7 +52,7 @@ class _RendezVousState extends State<RendezVous> {
               )
             ],
           ),
-          SizedBox(
+         const SizedBox(
             height: 30,
           ),
           Expanded(
@@ -62,7 +62,7 @@ class _RendezVousState extends State<RendezVous> {
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: Colors.grey[200],
-              borderRadius: BorderRadius.only(
+              borderRadius:const BorderRadius.only(
                   topLeft: Radius.circular(30), topRight: Radius.circular(30)),
             ),
             child: SingleChildScrollView(

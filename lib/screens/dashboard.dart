@@ -9,6 +9,8 @@ import 'package:masante228/widgets/rdv_widget.dart';
 import 'package:masante228/widgets/specialite_widget.dart';
 import 'package:masante228/widgets/text_widget.dart';
 
+import 'bin/dashboard_pages/all_rdv.dart';
+
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
 
@@ -107,7 +109,7 @@ class _DashBoardState extends State<DashBoard> {
                       children: [
                         SizedBox(
                             width: kSize(context).width / 1.5,
-                            child: InputWidget(
+                            child: const InputWidget(
                               placeholder: "Rechercher quelque chose",
                               applyBorder: true,
                             )),
@@ -159,21 +161,21 @@ class _DashBoardState extends State<DashBoard> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextWidget(
+                      const TextWidget(
                         data: "Rendez-vous a venir",
                         fontWeight: FontWeight.w500,
                       ),
-                      /* TextButton(
+                      TextButton(
                           onPressed: () {
-                            Navigator.push(context,
-                                slidableRoute(nextPage: AllRdvScreen()));
+                            Navigator.pushReplacement(context,
+                                slidableRoute(nextPage: const AllRdvScreen()));
                           },
                           child: TextWidget(
                             data: "voir tout",
                             color: kPrimaryColor,
                             fontWeight: FontWeight.w500,
                             fontSize: 15,
-                          ))*/
+                          ))
                     ],
                   ),
                   SizedBox(

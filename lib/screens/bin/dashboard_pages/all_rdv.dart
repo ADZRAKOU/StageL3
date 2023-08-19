@@ -1,51 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:masante228/screens/provider/page_provider.dart';
-import 'package:masante228/screens/splash.dart';
 import 'package:masante228/utils/color_utils.dart';
-import 'package:provider/provider.dart';
+import 'package:masante228/utils/utils.dart';
+import 'package:masante228/widgets/rdv_widget.dart';
+import 'package:masante228/widgets/text_widget.dart';
 
-void main(List<String> args) {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class AllRdvScreen extends StatefulWidget {
+  const AllRdvScreen({super.key});
 
   @override
+  State<AllRdvScreen> createState() => _AllRdvScreenState();
+}
+
+class _AllRdvScreenState extends State<AllRdvScreen> {
+  @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_)=> PageProvider())
-      ],
-      child: MaterialApp(
-        title: "MedicApp",
-        theme: ThemeData(
-          useMaterial3: true,
-          tabBarTheme: TabBarTheme(
-            indicatorColor: kPrimaryColor,
-            labelStyle: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500,),
-          ),
-          textTheme: TextTheme(
-           bodyLarge: GoogleFonts.poppins(fontSize: 18, color: kBlackColor),
-          ),
-          appBarTheme: AppBarTheme(
-            backgroundColor: kPrimaryColor,
-            centerTitle: true,
-            iconTheme: IconThemeData(
-              color: kWhiteColor
-            ),
-            elevation: 0
-          ),
-          scaffoldBackgroundColor: kPrimaryColor /* Colors.grey[300] */,
-          inputDecorationTheme: InputDecorationTheme(
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            fillColor: kWhiteColor,
-            filled: true
-          )
+    return Scaffold(
+      appBar: AppBar(
+        title: TextWidget(
+          data: "Rendez-vous",
+          color: kWhiteColor,
+          fontWeight: FontWeight.w500,
         ),
-        home: const SplashScreen(),
+      ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ...localRdvData.map((e) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: RdvWidget(
+                      doctorName: e["name"],
+                      specialite: e["specialite"],
+                      status: e["status"],
+                    ),
+                  ))
+            ],
+          ),
+        ),
       ),
     );
   }

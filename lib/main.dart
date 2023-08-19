@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:masante228/screens/provider/page_provider.dart';
+import 'package:masante228/screens/provider/user_provider.dart';
 import 'package:masante228/screens/splash.dart';
 import 'package:masante228/utils/color_utils.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +17,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_)=> PageProvider())
+        ChangeNotifierProvider(create: (_)=> PageProvider()),
+        ChangeNotifierProvider(create: (_)=> UserProvider())
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: "MedicApp",
         theme: ThemeData(
           useMaterial3: true,

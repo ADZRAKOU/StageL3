@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masante228/screens/authentificate/email_verify.dart';
 import 'package:masante228/screens/dashboard.dart';
 import 'package:masante228/screens/home_page.dart';
 import 'package:masante228/screens/rendez_vous.dart';

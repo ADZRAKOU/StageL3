@@ -8,6 +8,10 @@ import 'package:masante228/utils/screens_utils.dart';
 import 'package:masante228/widgets/button_widget.dart';
 import 'package:masante228/widgets/input_widget.dart';
 import 'package:masante228/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
+
+import '../../utils/utils.dart';
+import '../provider/user_provider.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -17,77 +21,188 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  late UserProvider userProvider;
+  String nom = "";
+  String prenom = "";
+  String email = "";
+  String contact = "";
+  String genre = "";
+
+  final key = GlobalKey<FormState>();
+  @override
+  void initState() {
+    userProvider = context.read<UserProvider>();
+    userProvider.addListener(listener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    userProvider.removeListener(listener);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimaryColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: kSize(context).height / 3.2,
-              child: Center(
-                child: Image.asset(
-                  kImagePath(imageName: "logo.png"),
+      body: Form(
+        key: key,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: kSize(context).height / 3.2,
+                child: Center(
+                  child: Image.asset(
+                    kImagePath(imageName: "logo.png"),
+                  ),
                 ),
               ),
-            ),
-            Container(
-              height: kSize(context).height - kSize(context).height / 3.2,
-              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const TextWidget(
-                    data: "INSCRIPTION",
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: InputWidget(placeholder: "Nom"),
-                  ),
-                  const InputWidget(placeholder: "Prenom"),
-                  const Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: const InputWidget(placeholder: "Email"),
-                  ),
-                  const InputWidget(placeholder: "Password"),
-                  const Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: const InputWidget(placeholder: "Contact"),
-                  ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: ButtonWidget(
-                        //width: kSize(context).width / 2,
-                        child: "Sinscrire",
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => const HomePage()));
+              Container(
+                height: kSize(context).height - kSize(context).height / 3.2,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30))),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const TextWidget(
+                      data: "INSCRIPTION",
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: InputWidget(
+                        placeholder: "Nom",
+                        onChanged: (p0) {
+                          nom = p0;
+                        },
+                        validator: (p0) {
+                          if (p0 == null || p0.isEmpty) {
+                            return "le champ ne peux etre vide";
+                          }
                         },
                       ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
+                    InputWidget(
+                      placeholder: "Prenom",
+                      onChanged: (p0) {
+                        prenom = p0;
+                      },
+                      validator: (p0) {
+                        if (p0 == null || p0.isEmpty) {
+                          return "le champ ne peux etre vide";
+                        }
+                      },
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: InputWidget(
+                          placeholder: "Email",
+                          onChanged: (p0) {
+                            email = p0;
+                          },
+                          validator: (p0) {
+                            if (p0 == null || p0.isEmpty) {
+                              return "le champ ne peux etre vide";
+                            }
+                            if (!p0.contains("@")) {
+                              return "le mail n'est pas valide";
+                            }
+                          },
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: InputWidget(
+                        placeholder: "genre",
+                        onChanged: (p0) {
+                          contact = p0;
+                        },
+                        validator: (p0) {
+                          if (p0 == null || p0.isEmpty) {
+                            return "le champ ne peux etre vide";
+                          }
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: InputWidget(
+                        placeholder: "Contact",
+                        onChanged: (p0) {
+                          contact = p0;
+                        },
+                        validator: (p0) {
+                          if (p0 == null || p0.isEmpty) {
+                            return "le champ ne peux etre vide";
+                          }
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: ButtonWidget(
+                          //width: kSize(context).width / 2,
+                          child: "Sinscrire",
+                          onPressed: () {
+                            if (key.currentState!.validate()) {
+                              userProvider.signUpUser(
+                                  nom: nom,
+                                  contact: contact,
+                                  email: email,
+                                  genre: genre,
+                                  prenom: prenom);
+                            }
+                            /* Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => const SignUpPage())) */
+                            ;
+
+                            /* Navigator.pushAndRemoveUntil(
+                                context,
+                                slidableRoute(nextPage: const HomePage()),
+                                (route) => false);*/
+                            /*  Navigator.push(
+                                context,
+                                MaterialPageRoute(
+             ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  listener() {
+    final st = userProvider.status;
+    if (st == Status.loading) {
+      showLoaderDialog(context);
+    }
+    if (st == Status.loaded) {
+      Navigator.pop(context);
+      //Navigator.push.......
+    }
+    if (st == Status.error) {
+      Navigator.pop(context);
+      kSnackBar(context, 'une erreur sest produite', color: Colors.red);
+    }
   }
 }

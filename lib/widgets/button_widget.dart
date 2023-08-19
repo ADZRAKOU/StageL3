@@ -8,7 +8,7 @@ class ButtonWidget extends StatelessWidget {
   final String child;
   final Color? childColor;
   final Color? buttonColor;
-  const ButtonWidget({super.key, this.width, this.onPressed, required this.child, this.childColor, this.buttonColor});
+  const ButtonWidget( {super.key, this.width, this.onPressed, required this.child, this.childColor, this.buttonColor});
 
   @override
   Widget build(BuildContext context) {
