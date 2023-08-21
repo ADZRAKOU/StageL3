@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:masante228/screens/authentificate/signin_screen.dart';
 import 'package:masante228/screens/dashboard.dart';
 import 'package:masante228/screens/home_page.dart';
 import 'package:masante228/utils/color_utils.dart';
@@ -127,7 +128,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: InputWidget(
                         placeholder: "genre",
                         onChanged: (p0) {
-                          contact = p0;
+                          genre = p0;
                         },
                         validator: (p0) {
                           if (p0 == null || p0.isEmpty) {
@@ -152,34 +153,31 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                     Expanded(
                       child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: ButtonWidget(
-                          //width: kSize(context).width / 2,
-                          child: "Sinscrire",
-                          onPressed: () {
-                            if (key.currentState!.validate()) {
-                              userProvider.signUpUser(
-                                  nom: nom,
-                                  contact: contact,
-                                  email: email,
-                                  genre: genre,
-                                  prenom: prenom);
-                            }
-                            /* Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => const SignUpPage())) */
-                            ;
+                          alignment: Alignment.bottomCenter,
+                          child: ButtonWidget(
+                              //width: kSize(context).width / 2,
+                              child: "Sinscrire",
+                              onPressed: () {
+                                if (key.currentState!.validate()) {
+                                  print('[$genre]');
+                                  userProvider.signUpUser(
+                                      nom: nom,
+                                      contact: contact,
+                                      email: email,
+                                      genre: genre.trim(),
+                                      prenom: prenom);
+                                }
+                              })
 
-                            /* Navigator.pushAndRemoveUntil(
+                          /* Navigator.pushAndRemoveUntil(
                                 context,
                                 slidableRoute(nextPage: const HomePage()),
                                 (route) => false);*/
-                            /*  Navigator.push(
+                          /*  Navigator.push(
                                 context,
                                 MaterialPageRoute(
-             ),
-                      ),
+             ),*/
+                          ),
                     ),
                   ],
                 ),
@@ -198,7 +196,11 @@ class _SignUpPageState extends State<SignUpPage> {
     }
     if (st == Status.loaded) {
       Navigator.pop(context);
-      //Navigator.push.......
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const SignInPage()),
+      );
     }
     if (st == Status.error) {
       Navigator.pop(context);

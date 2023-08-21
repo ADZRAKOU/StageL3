@@ -31,11 +31,11 @@ class UserProvider with ChangeNotifier {
     try {
       // var data = await UserServices().signInUser(email: email);
       await UserServices().signUpUser(
-          nom:'nom',
-          contact: 'contact',
-          email: 'email',
-          prenom: 'prenom',
-          genre: 'genre');
+          nom: nom,
+          contact: contact,
+          email: email,
+          prenom: prenom,
+          genre: genre);
       _status = Status.loaded;
       notifyListeners();
     } catch (e) {
@@ -43,4 +43,5 @@ class UserProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
 }

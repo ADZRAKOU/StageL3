@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masante228/screens/authentificate/signup_page.dart';
+import 'package:masante228/screens/home_page.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../utils/color_utils.dart';
@@ -44,7 +45,12 @@ class _EmailVerifyState extends State<EmailVerify> {
               PinCodeTextField(
                   appContext: context,
                   length: 6,
-                  keyboardType: TextInputType.number),
+                  keyboardType: TextInputType.number,
+                  validator: (p0) {
+                    if (p0?.length != 6) {
+                    } else {}
+                    return null;
+                  }),
               Expanded(
                 child: Align(
                   alignment: Alignment.bottomCenter,
@@ -52,10 +58,10 @@ class _EmailVerifyState extends State<EmailVerify> {
                     //width: kSize(context).width / 2,
                     child: "Confirmer",
                     onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const SignUpPage()));
+
+                              
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (_) => const HomePage()));
                     },
                   ),
                 ),

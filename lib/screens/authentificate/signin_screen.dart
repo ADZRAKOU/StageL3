@@ -9,6 +9,7 @@ import 'package:masante228/widgets/button_widget.dart';
 import 'package:masante228/widgets/input_widget.dart';
 import 'package:masante228/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'email_verify.dart';
 
@@ -94,6 +95,7 @@ class _SignInPageState extends State<SignInPage> {
                           if (!p0.contains("@")) {
                             return "le mail n'est pas valide";
                           }
+                          return null;
                         },
                       ),
                     ),
@@ -107,7 +109,6 @@ class _SignInPageState extends State<SignInPage> {
                                 if (key.currentState!.validate()) {
                                   userProvider.signInUser(email: email);
                                 }
-                            
                               })),
                     ),
                     Center(
@@ -115,6 +116,20 @@ class _SignInPageState extends State<SignInPage> {
                       data: "Mot de passe oublie",
                       color: kGreyColor,
                     )),
+                    Expanded(
+                        child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: RichText(
+                        text: TextSpan(children: [
+                          TextSpan(
+                              text: "Avez vous un compte?",
+                              style: GoogleFonts.poppins(color: kGreyColor)),
+                          TextSpan(
+                              text: " Inscrivez-vous",
+                              style: GoogleFonts.poppins(color: kPrimaryColor))
+                        ]),
+                      ),
+                    ))
                   ],
                 ),
               )

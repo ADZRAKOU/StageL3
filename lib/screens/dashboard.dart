@@ -191,6 +191,43 @@ class _DashBoardState extends State<DashBoard> {
                             status: localRdvData[index]["status"],
                           );
                         }),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const TextWidget(
+                        data: "Les rendez-vous d'aujourd'hui",
+                        fontWeight: FontWeight.w500,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(context,
+                                slidableRoute(nextPage: const AllRdvScreen()));
+                          },
+                          child: TextWidget(
+                            data: "voir tout",
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                          ))
+                    ],
+                  ),
+                  SizedBox(
+                    height: 90,
+                    child: PageView.builder(
+                        itemCount: localRdvData.length,
+                        controller: PageController(viewportFraction: .95),
+                        itemBuilder: (context, index) {
+                          return RdvWidget(
+                            hasMargin: true,
+                            doctorName: localRdvData[index]["name"],
+                            specialite: localRdvData[index]["specialite"],
+                            status: localRdvData[index]["status"],
+                          );
+                        }),
                   )
                 ],
               ),

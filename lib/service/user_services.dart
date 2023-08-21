@@ -43,7 +43,7 @@ class UserServices {
       if (response.statusCode != 200) {
         print(response.body);
 
-        throw Exception("une erreur s'est produite");
+        // throw Exception("une erreur s'est produite");
       }
       //return jsonEncode(response.body)
     } catch (e) {
@@ -51,4 +51,20 @@ class UserServices {
       rethrow;
     }
   }
+
+Future<void> Specialite({required String nom, required String specialite}) async {
+    try {
+      var response = await http.post(
+          kProdUri(endPoint: 'accounts/user/sign-in/'),
+          body: jsonEncode({'nom': nom, 'specialite': specialite, }),
+          headers: {"Content-Type": "application/json"});
+
+      //return jsonEncode(response.body)
+    } catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
+  }
+
+
 }

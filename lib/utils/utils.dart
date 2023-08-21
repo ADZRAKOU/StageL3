@@ -30,33 +30,33 @@ enum Status { initial, loading, loaded, error }
 
 List<Map<String, dynamic>> localRdvData = [
   {
-    "name": "Dr ADZRAkou Sergine",
-    "specialite": "Dentiste",
+    "name": "Dr AMETITOVI ",
+    "specialite": "Chirugie",
     "status": RdvStatus.loading
   },
   {
-    "name": "Dr AKPA Akpro",
-    "specialite": "Gynecologue",
+    "name": "Dr SAMBIANI ",
+    "specialite": "Biosie",
     "status": RdvStatus.rejected
   },
   {
-    "name": "Dr YEMDOUBALI Ahmed",
-    "specialite": "Dermatologue",
+    "name": "Dr ANAYO ",
+    "specialite": "Neuro",
     "status": RdvStatus.finish
   },
   {
-    "name": "Dr ADZRAkou Sergine",
-    "specialite": "Dentiste",
+    "name": "Dr LAWSON",
+    "specialite": "Gastro",
     "status": RdvStatus.loading
   },
   {
-    "name": "Dr AKPA Akpro",
-    "specialite": "Gynecologue",
+    "name": "Prof TENGUE  ",
+    "specialite": "Uro",
     "status": RdvStatus.rejected
   },
   {
-    "name": "Dr YEMDOUBALI Ahmed",
-    "specialite": "Dermatologue",
+    "name": "Dr MOSSI  ",
+    "specialite": "Diabeto",
     "status": RdvStatus.finish
   }
 ];

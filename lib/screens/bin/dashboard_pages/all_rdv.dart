@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masante228/screens/apointment.dart';
 import 'package:masante228/utils/color_utils.dart';
 import 'package:masante228/utils/utils.dart';
 import 'package:masante228/widgets/rdv_widget.dart';
@@ -21,6 +22,16 @@ class _AllRdvScreenState extends State<AllRdvScreen> {
           color: kWhiteColor,
           fontWeight: FontWeight.w500,
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AppointmentPage()),
+          );
+          // Faire quelque chose
+        },
+        child: const Icon(Icons.add),
       ),
       body: Container(
         height: double.infinity,
