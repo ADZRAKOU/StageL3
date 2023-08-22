@@ -26,7 +26,7 @@ List<Map<String, dynamic>> speciality = [
 
 enum RdvStatus { loading, finish, rejected }
 
-enum Status { initial, loading, loaded, error }
+enum Status { initial, loading, loaded, error, exist }
 
 List<Map<String, dynamic>> localRdvData = [
   {

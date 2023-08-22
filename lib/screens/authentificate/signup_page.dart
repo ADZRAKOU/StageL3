@@ -15,8 +15,9 @@ import '../../utils/utils.dart';
 import '../provider/user_provider.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+  const SignUpPage({super.key, required this.email});
 
+  final String email;
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
@@ -25,7 +26,6 @@ class _SignUpPageState extends State<SignUpPage> {
   late UserProvider userProvider;
   String nom = "";
   String prenom = "";
-  String email = "";
   String contact = "";
   String genre = "";
 
@@ -90,7 +90,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           nom = p0;
                         },
                         validator: (p0) {
-                          if (p0 == null || p0.isEmpty) {
+                          if (p0 == null || p0.trim().isEmpty) {
                             return "le champ ne peux etre vide";
                           }
                         },
@@ -102,27 +102,11 @@ class _SignUpPageState extends State<SignUpPage> {
                         prenom = p0;
                       },
                       validator: (p0) {
-                        if (p0 == null || p0.isEmpty) {
+                        if (p0 == null || p0.trim().isEmpty) {
                           return "le champ ne peux etre vide";
                         }
                       },
                     ),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: InputWidget(
-                          placeholder: "Email",
-                          onChanged: (p0) {
-                            email = p0;
-                          },
-                          validator: (p0) {
-                            if (p0 == null || p0.isEmpty) {
-                              return "le champ ne peux etre vide";
-                            }
-                            if (!p0.contains("@")) {
-                              return "le mail n'est pas valide";
-                            }
-                          },
-                        )),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: InputWidget(
@@ -131,7 +115,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           genre = p0;
                         },
                         validator: (p0) {
-                          if (p0 == null || p0.isEmpty) {
+                          if (p0 == null || p0.trim().isEmpty) {
                             return "le champ ne peux etre vide";
                           }
                         },
@@ -145,7 +129,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           contact = p0;
                         },
                         validator: (p0) {
-                          if (p0 == null || p0.isEmpty) {
+                          if (p0 == null || p0.trim().isEmpty) {
                             return "le champ ne peux etre vide";
                           }
                         },
@@ -163,7 +147,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   userProvider.signUpUser(
                                       nom: nom,
                                       contact: contact,
-                                      email: email,
+                                      email: widget.email,
                                       genre: genre.trim(),
                                       prenom: prenom);
                                 }
@@ -193,18 +177,20 @@ class _SignUpPageState extends State<SignUpPage> {
     final st = userProvider.status;
     if (st == Status.loading) {
       showLoaderDialog(context);
-    }
-    if (st == Status.loaded) {
-      Navigator.pop(context);
-
+    } else if (st == Status.loaded) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (_) => const SignInPage()),
+        MaterialPageRoute(builder: (_) => const HomePage()),
       );
-    }
-    if (st == Status.error) {
+    } else if (st == Status.error) {
       Navigator.pop(context);
-      kSnackBar(context, 'une erreur sest produite', color: Colors.red);
+      kSnackBar(context, "Une erreur s'est produite", color: Colors.red);
+    } else if (st == Status.exist) {
+      kSnackBar(context, 'Ce mail existe déjà');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomePage()),
+      );
     }
   }
 }

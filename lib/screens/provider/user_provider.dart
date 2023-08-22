@@ -39,9 +39,12 @@ class UserProvider with ChangeNotifier {
       _status = Status.loaded;
       notifyListeners();
     } catch (e) {
-      _status = Status.error;
+      if (e.toString() == "Exception: Exists") {
+        _status = Status.exist;
+      } else {
+        _status = Status.error;
+      }
       notifyListeners();
     }
   }
-
 }

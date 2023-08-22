@@ -144,13 +144,17 @@ class _SignInPageState extends State<SignInPage> {
     final st = userProvider.status;
     if (st == Status.loading) {
       showLoaderDialog(context);
-    }
-    if (st == Status.loaded) {
+    } else if (st == Status.loaded) {
       Navigator.pop(context);
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => const EmailVerify()));
-    }
-    if (st == Status.error) {
+        context,
+        MaterialPageRoute(
+          builder: (_) => EmailVerify(
+            email: email,
+          ),
+        ),
+      );
+    } else if (st == Status.error) {
       Navigator.pop(context);
       kSnackBar(context, 'une erreur sest produite', color: Colors.red);
     }

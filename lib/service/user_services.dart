@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -40,8 +39,9 @@ class UserServices {
             'contact': contact
           }),
           headers: {"Content-Type": "application/json"});
-      if (response.statusCode != 200) {
+      if (response.statusCode == 400) {
         print(response.body);
+        throw Exception("Exists");
 
         // throw Exception("une erreur s'est produite");
       }
@@ -52,12 +52,16 @@ class UserServices {
     }
   }
 
-Future<void> Specialite({required String nom, required String specialite}) async {
+  Future<void> Specialite(
+      {required String nom, required String specialite}) async {
     try {
-      var response = await http.post(
-          kProdUri(endPoint: 'accounts/user/sign-in/'),
-          body: jsonEncode({'nom': nom, 'specialite': specialite, }),
-          headers: {"Content-Type": "application/json"});
+      var response =
+          await http.post(kProdUri(endPoint: 'accounts/user/sign-in/'),
+              body: jsonEncode({
+                'nom': nom,
+                'specialite': specialite,
+              }),
+              headers: {"Content-Type": "application/json"});
 
       //return jsonEncode(response.body)
     } catch (e) {
@@ -66,5 +70,15 @@ Future<void> Specialite({required String nom, required String specialite}) async
     }
   }
 
-
+  Future<bool> checking(String email, String otp) async {
+    try {
+      await http.post(kProdUri(endPoint: 'accounts/user/sign-in/verify/'),
+          headers: {"Content-Type": "application/json"},
+          body: {'email': email, 'otp': otp});
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }
