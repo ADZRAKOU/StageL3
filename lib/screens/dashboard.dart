@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-//import 'package:masante228/screens/dashboard_pages/all_rdv.dart';
 import 'package:masante228/utils/color_utils.dart';
 import 'package:masante228/utils/screens_utils.dart';
 import 'package:masante228/utils/utils.dart';
@@ -70,7 +69,7 @@ class _DashBoardState extends State<DashBoard> {
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Expanded(
@@ -88,20 +87,23 @@ class _DashBoardState extends State<DashBoard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   RichText(
-                      text: TextSpan(children: [
-                    TextSpan(
+                    text: TextSpan(children: [
+                      TextSpan(
                         text: "Salut Mlle Sergine,",
                         style: GoogleFonts.poppins(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
-                            color: kBlackColor)),
-                    TextSpan(
+                            color: kBlackColor),
+                      ),
+                      TextSpan(
                         text: " Heureux de vous revoir",
                         style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
                             color: kBlackColor,
-                            fontSize: 18))
-                  ])),
+                            fontSize: 18),
+                      )
+                    ]),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: Row(
@@ -113,23 +115,24 @@ class _DashBoardState extends State<DashBoard> {
                               placeholder: "Rechercher quelque chose",
                               applyBorder: true,
                             )),
-                        SizedBox(
+                        const SizedBox(
                           width: 15,
                         ),
                         Expanded(
-                            child: Container(
-                          decoration: BoxDecoration(
-                              color: kPrimaryColor,
-                              borderRadius: BorderRadius.circular(5)),
-                          height: 45,
-                          width: double.infinity,
-                          child: Center(
-                            child: Icon(
-                              Icons.search,
-                              color: kWhiteColor,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: kPrimaryColor,
+                                borderRadius: BorderRadius.circular(5)),
+                            height: 45,
+                            width: double.infinity,
+                            child: Center(
+                              child: Icon(
+                                Icons.search,
+                                color: kWhiteColor,
+                              ),
                             ),
                           ),
-                        ))
+                        ),
                       ],
                     ),
                   ),
@@ -143,15 +146,17 @@ class _DashBoardState extends State<DashBoard> {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: [
-                          ...speciality.map((e) => Padding(
+                        children: speciality
+                            .map(
+                              (e) => Padding(
                                 padding: const EdgeInsets.only(left: 10),
                                 child: SpecialityWidget(
                                     color: e["color"],
                                     imageName: e["image"],
                                     speciality: e["specialite"]),
-                              ))
-                        ],
+                              ),
+                            )
+                            .toList(),
                       ),
                     ),
                   ),

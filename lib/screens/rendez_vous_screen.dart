@@ -6,14 +6,14 @@ import 'package:masante228/widgets/text_widget.dart';
 import '../../utils/utils.dart';
 import '../../widgets/rdv_widget.dart';
 
-class RendezVous extends StatefulWidget {
-  const RendezVous({super.key});
+class RendezVousScreen extends StatefulWidget {
+  const RendezVousScreen({super.key});
 
   @override
-  State<RendezVous> createState() => _RendezVousState();
+  State<RendezVousScreen> createState() => _RendezVousScreen();
 }
 
-class _RendezVousState extends State<RendezVous> {
+class _RendezVousScreen extends State<RendezVousScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,7 +52,7 @@ class _RendezVousState extends State<RendezVous> {
               )
             ],
           ),
-         const SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Expanded(
@@ -62,7 +62,7 @@ class _RendezVousState extends State<RendezVous> {
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: Colors.grey[200],
-              borderRadius:const BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(30), topRight: Radius.circular(30)),
             ),
             child: SingleChildScrollView(

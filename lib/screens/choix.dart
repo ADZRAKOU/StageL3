@@ -1,16 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:masante228/screens/authentificate/email_verify.dart';
-import 'package:masante228/screens/calender_page.dart';
-import 'package:masante228/screens/dashboard.dart';
-import 'package:masante228/screens/editprofil_page.dart';
-import 'package:masante228/screens/home_page.dart';
-import 'package:masante228/screens/rendez_vous.dart';
-import 'package:masante228/screens/welcome/welcome_screen.dart';
 
-import 'authentificate/medecin_login.dart';
 import 'authentificate/signin_screen.dart';
-import 'authentificate/signup_page.dart';
-import 'choix.dart';
 
 class Choix extends StatelessWidget {
   const Choix({super.key});
