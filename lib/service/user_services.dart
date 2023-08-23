@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:masante228/models/personne.dart';
 import 'package:masante228/utils/utils.dart';
 
 class UserServices {
@@ -52,6 +53,25 @@ class UserServices {
     }
   }
 
+  Future<Personne?> getInfos(String email) async {
+    try {
+      var response = await http.get(
+        kProdUri(endPoint: "accounts/patients/"),
+        headers: {'accept': 'application/json'},
+      );
+      var jsons = jsonDecode(utf8.decode(response.bodyBytes));
+      for (var data in jsons) {
+        print(data);
+        var u = Personne.fromJson(data);
+        if (u.email == email) return u;
+      }
+      return null;
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
+  }
+
   Future<void> Specialite(
       {required String nom, required String specialite}) async {
     try {
@@ -73,7 +93,7 @@ class UserServices {
   Future<bool> checking(String email, String otp) async {
     try {
       await http.post(kProdUri(endPoint: 'accounts/user/sign-in/verify/'),
-          headers: {"Content-Type": "application/json"},
+          // headers: {"Content-Type": "application/json"},
           body: {'email': email, 'otp': otp});
       return true;
     } catch (e) {

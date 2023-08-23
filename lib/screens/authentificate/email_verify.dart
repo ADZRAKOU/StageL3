@@ -72,7 +72,6 @@ class _EmailVerifyState extends State<EmailVerify> {
   }
 
   Future<void> checkOTP(String pin) async {
-    print(pin);
     if (await userServices.checking(widget.email, pin)) {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(

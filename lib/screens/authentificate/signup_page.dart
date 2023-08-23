@@ -15,9 +15,10 @@ import '../../utils/utils.dart';
 import '../provider/user_provider.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key, required this.email});
+  const SignUpPage({super.key, required this.email, this.isUser = true});
 
   final String email;
+  final bool isUser;
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }

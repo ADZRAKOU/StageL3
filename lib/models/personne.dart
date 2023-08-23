@@ -1,67 +1,52 @@
 class Personne {
-  String nom;  String prenom;
-  String mail;
-  String password;
-  DateTime dateNaissance;
-  String specialite;
-  String contact;
-  String autreContact;
-  String adresse;
+  int id;
+  String? nom;
+  String? prenom;
+  String? email;
+  int? specialite;
+  String? contact;
+  String? autreContact;
+  String? adresse;
   Role role;
   Genre genre;
-  bool estAssure;
-  String typeAssurence;
-  bool estActive;
 
-  Personne(
-      {required this.nom,
-      required this.prenom,
-      required this.mail,
-      required this.password,
-      required this.dateNaissance,
-      required this.specialite,
-      required this.contact,
-      required this.autreContact,
-      required this.adresse,
-      required this.role,
-      required this.genre,
-      required this.estAssure,
-      required this.typeAssurence,
-      required this.estActive});
+  Personne({
+    required this.id,
+    required this.nom,
+    required this.prenom,
+    required this.email,
+    required this.specialite,
+    required this.contact,
+    required this.autreContact,
+    required this.adresse,
+    required this.role,
+    required this.genre,
+  });
 
-      factory Personne.fromJson(Map<String, dynamic> json) => Personne(
-        nom: json["nom"],
-        prenom: json["prenom"],
-        mail: json["mail"],
-        password: json["password"], 
+  factory Personne.fromJson(Map<String, dynamic> json) => Personne(
+        id: json["id"] as int,
+        nom: json["last_name"],
+        prenom: json["first_name"],
+        email: json["email"],
         adresse: json["adresse"],
-        autreContact:json ["autreContact"],
-        contact: json ["contact"],
-        dateNaissance: json ["dateNaissance"],
-        estActive:json ["estActive"], 
-        estAssure:json ["estAssure"],
-        genre:json ["genre"],
-        role:json ["role"],
-        specialite:json['specialite'] ,
-        typeAssurence: json['typeAssurence'],
+        autreContact: json["autre_contact"],
+        contact: json["contact"],
+        genre: Genre.feminin,
+        role: Role.patient,
+        specialite: json['medecin_specialite'] as int?,
       );
 
   Map<String, dynamic> toJson() => {
-        "nom": nom,
-        "prenom": prenom,
-        "mail": mail,
-        "password": password,
-        "adresse": adresse, 
+        "last_name": nom,
+        "first_name": prenom,
+        "email": email,
+        "adresse": adresse,
         "contact": contact,
-        "autreContact": autreContact,
-        "dateNaissance": dateNaissance,
-        "estActive": estActive,
-        "estAssure": estAssure,
-        "genre ": genre,
-        "role": role,
-        "specialite":specialite,
+        "autre_contact": autreContact,
+        "genre ": genre.name,
+        "role": role.name,
+        "medecin_specialite": specialite,
       };
-
 }
 
 enum Role {
@@ -73,38 +58,3 @@ enum Role {
 }
 
 enum Genre { feminin, masculin }
-
-
-class Patient extends Personne{
-  Patient({required super.nom, required super.prenom, 
-  required super.mail, 
-  required super.password, 
-  required super.dateNaissance, 
-  required super.specialite, 
-  required super.contact, 
-  required super.autreContact, 
-  required super.adresse, 
-  required super.role, 
-  required super.genre, 
-  required super.estAssure, 
-  required super.typeAssurence, 
-  required super.estActive});
-
-}
-class Medecin extends Personne{
-  Medecin({required super.nom, 
-  required super.prenom, 
-  required super.mail, 
-  required super.password, 
-  required super.dateNaissance, 
-  required super.specialite, 
-  required super.contact, 
-  required super.autreContact, 
-  required super.adresse, 
-  required super.role, 
-  required super.genre, 
-  required super.estAssure, 
-  required super.typeAssurence, 
-  required super.estActive});
-
-}

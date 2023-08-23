@@ -142,18 +142,31 @@ class _SignInPageState extends State<SignInPage> {
 
   listener() {
     final st = userProvider.status;
+    final user = userProvider.user;
     if (st == Status.loading) {
       showLoaderDialog(context);
     } else if (st == Status.loaded) {
-      Navigator.pop(context);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => EmailVerify(
-            email: email,
+      if (user != null) {
+        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => EmailVerify(
+              email: email,
+            ),
           ),
-        ),
-      );
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => SignUpPage(
+              email: email,
+              isUser: false,
+            ),
+          ),
+        );
+      }
     } else if (st == Status.error) {
       Navigator.pop(context);
       kSnackBar(context, 'une erreur sest produite', color: Colors.red);
