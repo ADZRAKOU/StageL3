@@ -10,7 +10,7 @@ enum Pages { dashboard, forum, rdv, profile }
 
 Map<Pages, Widget> pagesToWidget = {
   Pages.dashboard: const DashBoard(),
-  Pages.forum: const Forum(),
+  Pages.forum: const MyHomePage(title: '',),
   Pages.rdv: const RendezVousScreen(),
   Pages.profile: const Profile()
 };

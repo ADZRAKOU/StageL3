@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'description.dart';
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
+// ignore: must_be_immutable
+class DescriptionPage extends StatefulWidget {
+  DescriptionPage({super.key, required this.specialisation});
+  dynamic specialisation;
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<DescriptionPage> createState() => _DescriptionPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _DescriptionPageState extends State<DescriptionPage> {
   List<dynamic> specialisations = [
     {
       'id': 1,
@@ -38,15 +35,13 @@ class _MyHomePageState extends State<MyHomePage> {
       'color': Colors.red,
     }
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
-        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Détails de la spécialisation'),
         centerTitle: true,
-        title: Text(widget.title),
         shadowColor: Colors.transparent,
       ),
       body: Container(
@@ -61,23 +56,32 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Specialisations'.toUpperCase(),
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Voir plus',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                ),
-              ],
+            Icon(
+              widget.specialisation['icon'],
+              color: widget.specialisation['color'],
+              size: MediaQuery.of(context).size.width / 2,
+            ),
+            Text(
+              widget.specialisation['name'],
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Text(
+              widget.specialisation['description'],
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 15,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            const SizedBox(
+              height: 15,
             ),
             Align(
               alignment: Alignment.topLeft,
@@ -159,25 +163,28 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               height: 15,
             ),
-            const Text(
-              'Prise de rendez-vous',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
             Expanded(
-              child: Align(
-                alignment: Alignment.center,
-                child: Image.network(
-                  'https://img.freepik.com/vecteurs-libre/prise-rendez-vous-calendrier_52683-39831.jpg',
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 50,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: widget.specialisation['color'],
+                      ),
+                      onPressed: () {},
+                      child: const Text(
+                        'Prendre rendez vous',
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }

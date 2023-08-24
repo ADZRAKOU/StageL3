@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "MedicApp",
+        title: "Masante228",
         theme: ThemeData(
           useMaterial3: true,
           tabBarTheme: TabBarTheme(
