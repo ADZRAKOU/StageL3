@@ -45,4 +45,22 @@ class MedecinServices {
       rethrow;
     }
   }
+
+  Future<Medecin?> getOne(int id) async {
+    try {
+      var response = await http.get(
+        kProdUri(endPoint: "accounts/medecins/$id/"),
+        headers: {'Content-Type': 'application/json'},
+      );
+      if (response.statusCode == 200) {
+        return Medecin.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      } else {
+        print("Erreur de post ${response.statusCode}");
+        return null;
+      }
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 }

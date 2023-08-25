@@ -3,13 +3,17 @@ import 'package:masante228/models/personne.dart';
 import 'package:masante228/service/user_services.dart';
 import 'package:masante228/utils/utils.dart';
 
+import '../../models/specialite.dart';
+
 class UserProvider with ChangeNotifier {
   final userServices = UserServices();
   Status _status = Status.initial;
   Status get status => _status;
 
-  late Personne? _user = null;
+  static Personne? _user = null;
   Personne? get user => _user;
+  static List<Specialite> _specialites = [];
+  List<Specialite> get specialites => _specialites;
 
   void signInUser({required String email}) async {
     _status = Status.loading;
@@ -51,6 +55,19 @@ class UserProvider with ChangeNotifier {
       } else {
         _status = Status.error;
       }
+      notifyListeners();
+    }
+  }
+
+  void getSpecialites() async {
+    _status = Status.loading;
+    notifyListeners();
+    try {
+      _specialites = await userServices.getAllSpecialites();
+      _status = Status.loaded;
+      notifyListeners();
+    } catch (e) {
+      _status = Status.error;
       notifyListeners();
     }
   }

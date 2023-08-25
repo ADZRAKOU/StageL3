@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:masante228/models/personne.dart';
+import 'package:masante228/models/specialite.dart';
 import 'package:masante228/utils/utils.dart';
+
 
 class UserServices {
   Future<void> signInUser({required String email}) async {
@@ -30,8 +32,8 @@ class UserServices {
       required String genre,
       required String contact}) async {
     try {
-      print(kProdUri(endPoint: 'accounts/patient/').toString());
-      var response = await http.post(kProdUri(endPoint: 'accounts/patient/'),
+      print(kProdUri(endPoint: 'accounts/patients/').toString());
+      var response = await http.post(kProdUri(endPoint: 'accounts/patients/'),
           body: jsonEncode({
             'last_name': nom,
             'first_name': prenom,
@@ -72,15 +74,30 @@ class UserServices {
     }
   }
 
-  Future<void> Specialite(
-      {required String nom, required String specialite}) async {
+  Future<List<Specialite>> getAllSpecialites() async {
+    List<Specialite> specialites = [];
     try {
-      var response =
-          await http.post(kProdUri(endPoint: 'accounts/user/sign-in/'),
-              body: jsonEncode({
-                'nom': nom,
-                'specialite': specialite,
-              }),
+      final response = await http.get(
+        kProdUri(endPoint: "core/specialites/"),
+        headers: {'accept': 'application/json'},
+      );
+      final jsons = jsonDecode(utf8.decode(response.bodyBytes));
+      for (var data in jsons) {
+        print(data);
+        specialites.add(Specialite.fromJson(data));
+      }
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
+    return specialites;
+  }
+
+  Future<void> saveSpecialite(Specialite specialite) async {
+    try {
+      final response =
+          await http.post(kProdUri(endPoint: 'core/specialites/'),
+              body: jsonEncode(specialite.toJon()),
               headers: {"Content-Type": "application/json"});
 
       //return jsonEncode(response.body)

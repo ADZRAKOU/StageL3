@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:masante228/models/specialite.dart';
+import 'package:masante228/utils/color_utils.dart';
 
 // ignore: must_be_immutable
 class DescriptionPage extends StatefulWidget {
-  DescriptionPage({super.key, required this.specialisation});
-  dynamic specialisation;
+  const DescriptionPage({super.key, required this.specialisation});
+  final Specialite specialisation;
   @override
   State<DescriptionPage> createState() => _DescriptionPageState();
 }
@@ -57,12 +59,12 @@ class _DescriptionPageState extends State<DescriptionPage> {
         child: Column(
           children: [
             Icon(
-              widget.specialisation['icon'],
-              color: widget.specialisation['color'],
+              Icons.add_home_work,
+              color: randomColor(),
               size: MediaQuery.of(context).size.width / 2,
             ),
             Text(
-              widget.specialisation['name'],
+              widget.specialisation.nom,
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 25,
@@ -73,7 +75,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
               height: 15,
             ),
             Text(
-              widget.specialisation['description'],
+              widget.specialisation.description,
               style: const TextStyle(
                 color: Colors.black,
                 fontSize: 15,
@@ -83,83 +85,83 @@ class _DescriptionPageState extends State<DescriptionPage> {
             const SizedBox(
               height: 15,
             ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.20,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: specialisations.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => DescriptionPage(
-                              specialisation: specialisations[index],
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 10),
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        decoration: BoxDecoration(
-                          color: specialisations[index]['color'],
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(12),
-                          ),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                const SizedBox(
-                                  width: 12,
-                                  height: 50,
-                                ),
-                                Icon(
-                                  specialisations[index]['icon'],
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  specialisations[index]['name'],
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                              ),
-                              child: Text(
-                                specialisations[index]['description'].substring(
-                                      0,
-                                      specialisations[index]['description']
-                                              .indexOf('.') +
-                                          1,
-                                    ) +
-                                    '...',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.topLeft,
+            //   child: SizedBox(
+            //     height: MediaQuery.of(context).size.height * 0.20,
+            //     child: ListView.builder(
+            //       scrollDirection: Axis.horizontal,
+            //       itemCount: specialisations.length,
+            //       itemBuilder: (context, index) {
+            //         return GestureDetector(
+            //           onTap: () {
+            //             Navigator.of(context).push(
+            //               MaterialPageRoute(
+            //                 builder: (context) => DescriptionPage(
+            //                   specialisation: specialisations[index],
+            //                 ),
+            //               ),
+            //             );
+            //           },
+            //           child: Container(
+            //             margin: const EdgeInsets.only(right: 10),
+            //             width: MediaQuery.of(context).size.width * 0.4,
+            //             decoration: BoxDecoration(
+            //               color: specialisations[index]['color'],
+            //               borderRadius: const BorderRadius.all(
+            //                 Radius.circular(12),
+            //               ),
+            //             ),
+            //             child: Column(
+            //               children: [
+            //                 Row(
+            //                   children: [
+            //                     const SizedBox(
+            //                       width: 12,
+            //                       height: 50,
+            //                     ),
+            //                     Icon(
+            //                       specialisations[index]['icon'],
+            //                       color: Colors.white,
+            //                     ),
+            //                     const SizedBox(
+            //                       width: 5,
+            //                     ),
+            //                     Text(
+            //                       specialisations[index]['name'],
+            //                       style: const TextStyle(
+            //                         color: Colors.white,
+            //                         fontWeight: FontWeight.bold,
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //                 Padding(
+            //                   padding: const EdgeInsets.symmetric(
+            //                     horizontal: 12,
+            //                   ),
+            //                   child: Text(
+            //                     specialisations[index]['description'].substring(
+            //                           0,
+            //                           specialisations[index]['description']
+            //                                   .indexOf('.') +
+            //                               1,
+            //                         ) +
+            //                         '...',
+            //                     style: const TextStyle(
+            //                       color: Colors.white,
+            //                       fontWeight: FontWeight.bold,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         );
+            //       },
+            //     ),
+            //   ),
+            // ),
             const SizedBox(
               height: 15,
             ),
@@ -172,7 +174,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: widget.specialisation['color'],
+                        backgroundColor: randomColor(),
                       ),
                       onPressed: () {},
                       child: const Text(

@@ -31,7 +31,7 @@ class Personne {
         adresse: json["adresse"],
         autreContact: json["autre_contact"],
         contact: json["contact"],
-        genre: Genre.feminin,
+        genre: json["genre"] == "feminin" ? Genre.feminin : Genre.masculin,
         role: Role.patient,
         specialite: json['medecin_specialite'] as int?,
       );

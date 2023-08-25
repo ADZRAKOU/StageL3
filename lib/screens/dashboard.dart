@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:masante228/models/personne.dart';
+import 'package:masante228/models/rendez_vous.dart';
+import 'package:masante228/screens/provider/page_provider.dart';
+import 'package:masante228/screens/provider/rendez_vous_provider.dart';
+import 'package:masante228/screens/provider/user_provider.dart';
+import 'package:masante228/screens/rendez_vous_screen.dart';
+import 'package:masante228/service/medecin_services.dart';
 import 'package:masante228/utils/color_utils.dart';
 import 'package:masante228/utils/screens_utils.dart';
 import 'package:masante228/utils/utils.dart';
@@ -7,6 +14,7 @@ import 'package:masante228/widgets/input_widget.dart';
 import 'package:masante228/widgets/rdv_widget.dart';
 import 'package:masante228/widgets/specialite_widget.dart';
 import 'package:masante228/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 import 'bin/dashboard_pages/all_rdv.dart';
 
@@ -18,6 +26,36 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+  late UserProvider userProvider;
+  late PageProvider pageProvider;
+
+  late RendezVousProvider rendezVousProvider;
+  late Personne? personne = userProvider.user;
+  Status userStatus = Status.initial;
+  Status rendStatus = Status.initial;
+
+  @override
+  void initState() {
+    userProvider = context.read<UserProvider>();
+    userProvider.addListener(userListener);
+    rendezVousProvider = context.read<RendezVousProvider>();
+    pageProvider = context.read<PageProvider>();
+    rendezVousProvider.addListener(rendezListener);
+
+    Future.delayed(Duration.zero, () => userProvider.getSpecialites());
+    Future.delayed(Duration.zero, () => rendezVousProvider.getAll());
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // userProvider.removeListener(userListener);
+    // userProvider.dispose();
+    // rendezVousProvider.removeListener(rendezListener);
+    // rendezVousProvider.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,32 +64,6 @@ class _DashBoardState extends State<DashBoard> {
       decoration: BoxDecoration(color: kPrimaryColor),
       child: Column(
         children: [
-          /* Container(
-            height: kSize(context).height / 6,
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: TextWidget(
-                          data: "DashBoard",
-                          color: kWhiteColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ))),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: Icon(
-                      Icons.notifications,
-                      color: kWhiteColor,
-                    ))
-              ],
-            ),
-          ), */
           AppBar(
             title: TextWidget(
               data: "DashBoard",
@@ -89,7 +101,8 @@ class _DashBoardState extends State<DashBoard> {
                   RichText(
                     text: TextSpan(children: [
                       TextSpan(
-                        text: "Salut Mlle Sergine,",
+                        text:
+                            "Salut ${personne?.genre == Genre.feminin ? "Mlle/Mdm" : "M."} ${personne?.prenom ?? ""},",
                         style: GoogleFonts.poppins(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
@@ -143,22 +156,32 @@ class _DashBoardState extends State<DashBoard> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: speciality
-                            .map(
-                              (e) => Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: SpecialityWidget(
-                                    color: e["color"],
-                                    imageName: e["image"],
-                                    speciality: e["specialite"]),
+                    child: userStatus == Status.loaded
+                        ? SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: userProvider.specialites
+                                  .map(
+                                    (e) => Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: SpecialityWidget(
+                                        color: randomColor(),
+                                        imageName: "brain.png",
+                                        speciality: e.nom,
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          )
+                        : const Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 50,
                               ),
-                            )
-                            .toList(),
-                      ),
-                    ),
+                              child: LinearProgressIndicator(),
+                            ),
+                          ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -172,8 +195,9 @@ class _DashBoardState extends State<DashBoard> {
                       ),
                       TextButton(
                           onPressed: () {
-                            Navigator.pushReplacement(context,
-                                slidableRoute(nextPage: const AllRdvScreen()));
+                            pageProvider.setPageInArborescence(
+                              pageToSet: Pages.rdv,
+                            );
                           },
                           child: TextWidget(
                             data: "voir tout",
@@ -185,17 +209,17 @@ class _DashBoardState extends State<DashBoard> {
                   ),
                   SizedBox(
                     height: 90,
-                    child: PageView.builder(
-                        itemCount: localRdvData.length,
-                        controller: PageController(viewportFraction: .95),
-                        itemBuilder: (context, index) {
-                          return RdvWidget(
-                            hasMargin: true,
-                            doctorName: localRdvData[index]["name"],
-                            specialite: localRdvData[index]["specialite"],
-                            status: localRdvData[index]["status"],
-                          );
-                        }),
+                    child: getRendezVous(
+                      rendezVousProvider.rendezVouss
+                          .where(
+                            (element) => compareDate(
+                              element.dateHeure,
+                              DateTime.now(),
+                              addDay: 1,
+                            ),
+                          )
+                          .toList(),
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -208,32 +232,33 @@ class _DashBoardState extends State<DashBoard> {
                         fontWeight: FontWeight.w500,
                       ),
                       TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(context,
-                                slidableRoute(nextPage: const AllRdvScreen()));
-                          },
-                          child: TextWidget(
-                            data: "voir tout",
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15,
-                          ))
+                        onPressed: () {
+                          pageProvider.setPageInArborescence(
+                            pageToSet: Pages.rdv,
+                          );
+                        },
+                        child: TextWidget(
+                          data: "voir tout",
+                          color: kPrimaryColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(
                     height: 90,
-                    child: PageView.builder(
-                        itemCount: localRdvData.length,
-                        controller: PageController(viewportFraction: .95),
-                        itemBuilder: (context, index) {
-                          return RdvWidget(
-                            hasMargin: true,
-                            doctorName: localRdvData[index]["name"],
-                            specialite: localRdvData[index]["specialite"],
-                            status: localRdvData[index]["status"],
-                          );
-                        }),
-                  )
+                    child: getRendezVous(
+                      rendezVousProvider.rendezVouss
+                          .where(
+                            (element) => compareDate(
+                              element.dateHeure,
+                              DateTime.now(),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -241,5 +266,62 @@ class _DashBoardState extends State<DashBoard> {
         ],
       ),
     );
+  }
+
+  userListener() {
+    if (userStatus != Status.loaded) {
+      setState(() {
+        userStatus = userProvider.status;
+      });
+    }
+  }
+
+  rendezListener() {
+    if (rendStatus != Status.loaded) {
+      setState(() {
+        rendStatus = rendezVousProvider.status;
+      });
+    }
+  }
+
+  Widget getRendezVous(List<RendezVous> rends) {
+    if (rendStatus == Status.loaded) {
+      if (rends.isEmpty) {
+        return const RdvWidget(
+          hasMargin: true,
+          doctorName: "Vide",
+          specialite: "Vide",
+          status: RdvStatus.finish,
+        );
+      } else {
+        return PageView.builder(
+          itemCount: rendezVousProvider.rendezVouss.length,
+          controller: PageController(viewportFraction: .95),
+          itemBuilder: (context, index) {
+            return RdvWidget(
+              hasMargin: true,
+              doctorName: rends[index].medecin.toString(),
+              specialite: "Cardio",
+              status: rdvs[rends[index].status]!,
+            );
+          },
+        );
+      }
+    } else {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 50,
+          ),
+          child: LinearProgressIndicator(),
+        ),
+      );
+    }
+  }
+
+  bool compareDate(DateTime? source, DateTime b, {int addDay = 0}) {
+    return (source?.year == b.year) &&
+        (source?.month == b.month) &&
+        ((source?.day ?? 0 + addDay) == b.day);
   }
 }

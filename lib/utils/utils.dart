@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masante228/models/model.dart';
 import 'package:masante228/utils/color_utils.dart';
 import 'package:masante228/utils/screens_utils.dart';
 
@@ -39,26 +40,10 @@ List<Map<String, dynamic>> localRdvData = [
     "specialite": "Biosie",
     "status": RdvStatus.rejected
   },
-  {
-    "name": "Dr ANAYO ",
-    "specialite": "Neuro",
-    "status": RdvStatus.finish
-  },
-  {
-    "name": "Dr LAWSON",
-    "specialite": "Gastro",
-    "status": RdvStatus.loading
-  },
-  {
-    "name": "Prof TENGUE  ",
-    "specialite": "Uro",
-    "status": RdvStatus.rejected
-  },
-  {
-    "name": "Dr MOSSI  ",
-    "specialite": "Diabeto",
-    "status": RdvStatus.finish
-  }
+  {"name": "Dr ANAYO ", "specialite": "Neuro", "status": RdvStatus.finish},
+  {"name": "Dr LAWSON", "specialite": "Gastro", "status": RdvStatus.loading},
+  {"name": "Prof TENGUE  ", "specialite": "Uro", "status": RdvStatus.rejected},
+  {"name": "Dr MOSSI  ", "specialite": "Diabeto", "status": RdvStatus.finish}
 ];
 
 Uri kProdUri({required String endPoint}) =>
@@ -107,3 +92,13 @@ kSnackBar(context, String message, {Color? color}) =>
         ),
       ),
     );
+
+final genres = {
+  "masculin": Genre.masculin,
+  "feminin": Genre.feminin,
+};
+final rdvs = {
+  "en cours": RdvStatus.loading,
+  "finish": RdvStatus.finish,
+  "rejected": RdvStatus.rejected,
+};

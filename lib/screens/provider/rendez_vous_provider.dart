@@ -17,6 +17,7 @@ class RendezVousProvider with ChangeNotifier {
 
   void saveRendezVous({required RendezVous rendezVous}) async {
     _status = Status.loading;
+    notifyListeners();
     try {
       _rendezVous = await _rendezVousServices.save(rendezVous);
       _status = Status.loaded;

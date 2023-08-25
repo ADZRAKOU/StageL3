@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:masante228/screens/provider/rendez_vous_provider.dart';
 import 'package:masante228/utils/color_utils.dart';
 import 'package:masante228/utils/screens_utils.dart';
 import 'package:masante228/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/utils.dart';
 import '../../widgets/rdv_widget.dart';
@@ -14,6 +16,22 @@ class RendezVousScreen extends StatefulWidget {
 }
 
 class _RendezVousScreen extends State<RendezVousScreen> {
+  late RendezVousProvider rendezVousProvider;
+  Status rendStatus = Status.initial;
+
+  @override
+  void initState() {
+    rendezVousProvider = context.read<RendezVousProvider>();
+    rendezVousProvider.addListener(rendezVousListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    rendezVousProvider.removeListener(rendezVousListener);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,20 +39,6 @@ class _RendezVousScreen extends State<RendezVousScreen> {
       width: double.infinity,
       child: Column(
         children: [
-          /* Container(
-            height: kSize(context).height / 6,
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: [
-                Expanded(child: Align(
-                  alignment: Alignment.center,
-                  child: TextWidget(data: "Tous les Rendez-vous", color: kWhiteColor, fontSize: 20, fontWeight: FontWeight.w500,))),
-                  Align(alignment: Alignment.centerRight,
-                  child: Icon(Icons.info, color: kWhiteColor,),)
-              ],
-            ),
-          ), */
           AppBar(
             title: TextWidget(
               data: "Tous les Rendez-vous",
@@ -67,21 +71,29 @@ class _RendezVousScreen extends State<RendezVousScreen> {
             ),
             child: SingleChildScrollView(
               child: Column(
-                children: [
-                  ...localRdvData.map((e) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: RdvWidget(
-                          doctorName: e["name"],
-                          specialite: e["specialite"],
-                          status: e["status"],
-                        ),
-                      ))
-                ],
+                children: rendezVousProvider.rendezVouss
+                    .map((e) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: RdvWidget(
+                            doctorName: e.motif,
+                            specialite: 'Cardio',
+                            status: rdvs[e.status] ?? RdvStatus.loading,
+                          ),
+                        ))
+                    .toList(),
               ),
             ),
           ))
         ],
       ),
     );
+  }
+
+  rendezVousListener() {
+    if (rendStatus != Status.loaded) {
+      setState(() {
+        rendStatus = rendezVousProvider.status;
+      });
+    }
   }
 }

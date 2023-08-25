@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:masante228/screens/provider/user_provider.dart';
 import 'package:masante228/utils/path_utils.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/color_utils.dart';
 import '../../utils/screens_utils.dart';
@@ -13,28 +15,22 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> with TickerProviderStateMixin {
+  late UserProvider userProvider;
+
+  @override
+  void initState() {
+    userProvider = context.read<UserProvider>();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final controller = TabController(length: 3, vsync: this);
+    final controller = TabController(length: 1, vsync: this);
     return Container(
       height: kSize(context).height - 70,
       width: double.infinity,
       child: Column(
         children: [
-          /* Container(
-            height: kSize(context).height / 6,
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              children: [
-                Expanded(child: Align(
-                  alignment: Alignment.center,
-                  child: TextWidget(data: "Profile", color: kWhiteColor, fontSize: 20, fontWeight: FontWeight.w500,))),
-                  Align(alignment: Alignment.centerRight,
-                  child: Icon(Icons.edit_note, color: kWhiteColor,),)
-              ],
-            ),
-          ), */
           AppBar(
             title: TextWidget(
               data: "Profile",
@@ -60,11 +56,11 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                     AssetImage(kImagePath(imageName: "person.png"))),
           ),
           TextWidget(
-            data: "ADZRAKOU Sergine",
+            data: "${userProvider.user?.nom} ${userProvider.user?.prenom}",
             color: kWhiteColor,
             fontWeight: FontWeight.w500,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Expanded(
@@ -74,27 +70,26 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: Colors.grey[200],
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(30), topRight: Radius.circular(30)),
             ),
             child: Column(
               children: [
-                TabBar(controller: controller, tabs: [
+                TabBar(controller: controller, tabs: const [
                   Tab(
                     text: "Personnel",
                   ),
-                  Tab(
-                    text: "Dossier Medical",
-                  ),
-                  Tab(
-                    text: "QR Code",
-                  )
+                  // Tab(
+                  //   text: "Dossier Medical",
+                  // ),
+                  // Tab(
+                  //   text: "QR Code",
+                  // )
                 ]),
                 Expanded(
                   child: TabBarView(controller: controller, children: [
                     ListView(
                       children: [
-                        
                         ListTile(
                           contentPadding: EdgeInsets.zero,
                           title: TextWidget(
@@ -103,12 +98,11 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                             fontWeight: FontWeight.w500,
                           ),
                           subtitle: TextWidget(
-                          data: "NOM",
-                          color: kBlackColor,
-                          fontWeight: FontWeight.w500,
+                            data: userProvider.user?.nom ?? "",
+                            color: kBlackColor,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                        ),
-                        
                         ListTile(
                           contentPadding: EdgeInsets.zero,
                           title: TextWidget(
@@ -117,12 +111,11 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                             fontWeight: FontWeight.w500,
                           ),
                           subtitle: TextWidget(
-                          data: "prenom",
-                          color: kBlackColor,
-                          fontWeight: FontWeight.w500,
+                            data: userProvider.user?.prenom ?? "",
+                            color: kBlackColor,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                        ),
-                        
                         ListTile(
                           contentPadding: EdgeInsets.zero,
                           title: TextWidget(
@@ -131,12 +124,11 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                             fontWeight: FontWeight.w500,
                           ),
                           subtitle: TextWidget(
-                          data: "sergineadzrak@gmail.com",
-                          color: kBlackColor,
-                          fontWeight: FontWeight.w500,
+                            data: userProvider.user?.email ?? "",
+                            color: kBlackColor,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                        ),
-                        
                         ListTile(
                           contentPadding: EdgeInsets.zero,
                           title: TextWidget(
@@ -145,12 +137,11 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                             fontWeight: FontWeight.w500,
                           ),
                           subtitle: TextWidget(
-                          data: "feminin",
-                          color: kBlackColor,
-                          fontWeight: FontWeight.w500,
+                            data: userProvider.user?.genre.name ?? "",
+                            color: kBlackColor,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                        ),
-                        
                         ListTile(
                           contentPadding: EdgeInsets.zero,
                           title: TextWidget(
@@ -159,16 +150,15 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                             fontWeight: FontWeight.w500,
                           ),
                           subtitle: TextWidget(
-                          data: "contact",
-                          color: kBlackColor,
-                          fontWeight: FontWeight.w500,
+                            data: userProvider.user?.contact ?? "",
+                            color: kBlackColor,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                        ),
-                        
                       ],
                     ),
-                    TextWidget(data: "Dossier medical"),
-                    TextWidget(data: "Qr code")
+                    // const TextWidget(data: "Dossier medical"),
+                    // const TextWidget(data: "Qr code")
                   ]),
                 )
               ],

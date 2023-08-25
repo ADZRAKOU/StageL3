@@ -111,11 +111,7 @@ class _SignInPageState extends State<SignInPage> {
                                 }
                               })),
                     ),
-                    Center(
-                        child: TextWidget(
-                      data: "Mot de passe oublie",
-                      color: kGreyColor,
-                    )),
+
                     Expanded(
                         child: Align(
                       alignment: Alignment.bottomCenter,
@@ -162,7 +158,6 @@ class _SignInPageState extends State<SignInPage> {
           MaterialPageRoute(
             builder: (_) => SignUpPage(
               email: email,
-              isUser: false,
             ),
           ),
         );

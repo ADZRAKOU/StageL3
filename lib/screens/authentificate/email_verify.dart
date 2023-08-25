@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masante228/screens/authentificate/signup_page.dart';
+import 'package:masante228/screens/home_page.dart';
 import 'package:masante228/service/user_services.dart';
 import 'package:masante228/utils/utils.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -77,9 +78,7 @@ class _EmailVerifyState extends State<EmailVerify> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (_) => SignUpPage(
-            email: widget.email,
-          ),
+          builder: (_) => const HomePage(),
         ),
       );
     } else {

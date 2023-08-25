@@ -5,8 +5,6 @@ import 'package:masante228/screens/welcome_page.dart';
 import 'package:masante228/utils/color_utils.dart';
 import 'package:masante228/utils/path_utils.dart';
 
-import 'authentificate/signin_screen.dart';
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 

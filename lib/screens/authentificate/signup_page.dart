@@ -15,10 +15,10 @@ import '../../utils/utils.dart';
 import '../provider/user_provider.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key, required this.email, this.isUser = true});
+  const SignUpPage({super.key, required this.email});
 
   final String email;
-  final bool isUser;
+
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
@@ -179,6 +179,7 @@ class _SignUpPageState extends State<SignUpPage> {
     if (st == Status.loading) {
       showLoaderDialog(context);
     } else if (st == Status.loaded) {
+      Navigator.pop(context);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const HomePage()),
@@ -187,6 +188,7 @@ class _SignUpPageState extends State<SignUpPage> {
       Navigator.pop(context);
       kSnackBar(context, "Une erreur s'est produite", color: Colors.red);
     } else if (st == Status.exist) {
+      Navigator.pop(context);
       kSnackBar(context, 'Ce mail existe déjà');
       Navigator.pushReplacement(
         context,

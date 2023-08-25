@@ -8,7 +8,7 @@ class RendezVousServices {
   Future<List<RendezVous>> getAll() async {
     try {
       var response = await http.get(
-        kProdUri(endPoint: ""),
+        kProdUri(endPoint: "core/rendez-vous/"),
         headers: {'Content-Type': 'application/json'},
       );
       if (response.statusCode == 200) {
@@ -30,7 +30,7 @@ class RendezVousServices {
   Future<RendezVous?> save(RendezVous rendezVous) async {
     try {
       var response = await http.post(
-        kProdUri(endPoint: ""),
+        kProdUri(endPoint: "core/rendez-vous/"),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(rendezVous.toJson()),
       );
