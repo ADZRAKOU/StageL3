@@ -34,13 +34,13 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   void initState() {
     userProvider = context.read<UserProvider>();
-    userProvider.addListener(listener);
+    userProvider.addListener(listenerSignUP);
     super.initState();
   }
 
   @override
   void dispose() {
-    userProvider.removeListener(listener);
+    userProvider.removeListener(listenerSignUP);
     super.dispose();
   }
 
@@ -174,7 +174,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  listener() {
+  listenerSignUP() {
     final st = userProvider.status;
     if (st == Status.loading) {
       showLoaderDialog(context);
@@ -184,6 +184,7 @@ class _SignUpPageState extends State<SignUpPage> {
         context,
         MaterialPageRoute(builder: (_) => const HomePage()),
       );
+      // dispose();
     } else if (st == Status.error) {
       Navigator.pop(context);
       kSnackBar(context, "Une erreur s'est produite", color: Colors.red);
@@ -194,6 +195,7 @@ class _SignUpPageState extends State<SignUpPage> {
         context,
         MaterialPageRoute(builder: (_) => const HomePage()),
       );
+      // dispose();
     }
   }
 }

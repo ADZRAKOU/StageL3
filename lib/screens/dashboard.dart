@@ -5,8 +5,6 @@ import 'package:masante228/models/rendez_vous.dart';
 import 'package:masante228/screens/provider/page_provider.dart';
 import 'package:masante228/screens/provider/rendez_vous_provider.dart';
 import 'package:masante228/screens/provider/user_provider.dart';
-import 'package:masante228/screens/rendez_vous_screen.dart';
-import 'package:masante228/service/medecin_services.dart';
 import 'package:masante228/utils/color_utils.dart';
 import 'package:masante228/utils/screens_utils.dart';
 import 'package:masante228/utils/utils.dart';
@@ -15,8 +13,6 @@ import 'package:masante228/widgets/rdv_widget.dart';
 import 'package:masante228/widgets/specialite_widget.dart';
 import 'package:masante228/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
-
-import 'bin/dashboard_pages/all_rdv.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -42,16 +38,19 @@ class _DashBoardState extends State<DashBoard> {
     pageProvider = context.read<PageProvider>();
     rendezVousProvider.addListener(rendezListener);
 
-    Future.delayed(Duration.zero, () => userProvider.getSpecialites());
-    Future.delayed(Duration.zero, () => rendezVousProvider.getAll());
+    Future.delayed(Duration.zero, () {
+       userProvider.getSpecialites();
+      rendezVousProvider.getAll();
+    });
+
     super.initState();
   }
 
   @override
   void dispose() {
-    // userProvider.removeListener(userListener);
+    userProvider.removeListener(userListener);
     // userProvider.dispose();
-    // rendezVousProvider.removeListener(rendezListener);
+    rendezVousProvider.removeListener(rendezListener);
     // rendezVousProvider.dispose();
     super.dispose();
   }
@@ -269,18 +268,16 @@ class _DashBoardState extends State<DashBoard> {
   }
 
   userListener() {
-    if (userStatus != Status.loaded) {
-      setState(() {
-        userStatus = userProvider.status;
-      });
+    userStatus = userProvider.status;
+    if (userStatus == Status.loaded || userStatus == Status.error) {
+      setState(() {});
     }
   }
 
   rendezListener() {
-    if (rendStatus != Status.loaded) {
-      setState(() {
-        rendStatus = rendezVousProvider.status;
-      });
+    rendStatus = rendezVousProvider.status;
+    if (rendStatus == Status.loaded || rendStatus == Status.error) {
+      setState(() {});
     }
   }
 

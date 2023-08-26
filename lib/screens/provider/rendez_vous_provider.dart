@@ -30,6 +30,7 @@ class RendezVousProvider with ChangeNotifier {
 
   void getAll() async {
     _status = Status.loading;
+    notifyListeners();
     try {
       _rendezVouss = await _rendezVousServices.getAll();
       _status = Status.loaded;

@@ -1,12 +1,12 @@
 class Medecin {
-  String nom;
-  String prenom;
-  int specialite;
+  String? nom;
+  String? prenom;
+  int? specialite;
   String email;
-  String genre;
-  String contact;
-  String autreContact;
-  String adresse;
+  String? genre;
+  String? contact;
+  String? autreContact;
+  String? adresse;
 
   Medecin({
     required this.specialite,
@@ -23,7 +23,7 @@ class Medecin {
     return Medecin(
       nom: json['nom'],
       prenom: json['prenom'],
-      specialite: json['medecin_specialite'] as int,
+      specialite: json['medecin_specialite'] as int?,
       email: json['email'],
       genre: json['genre'],
       contact: json['contact'],

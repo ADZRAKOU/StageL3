@@ -8,7 +8,7 @@ class MedecinServices {
   Future<List<Medecin>> getAll() async {
     try {
       var response = await http.get(
-        kProdUri(endPoint: ""),
+        kProdUri(endPoint: "accounts/medecins/"),
         headers: {'Content-Type': 'application/json'},
       );
       if (response.statusCode == 200) {

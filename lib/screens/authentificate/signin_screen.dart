@@ -27,13 +27,13 @@ class _SignInPageState extends State<SignInPage> {
   @override
   void initState() {
     userProvider = context.read<UserProvider>();
-    userProvider.addListener(listener);
+    userProvider.addListener(listenerSignIn);
     super.initState();
   }
 
   @override
   void dispose() {
-    userProvider.removeListener(listener);
+    userProvider.removeListener(listenerSignIn);
     super.dispose();
   }
 
@@ -111,7 +111,6 @@ class _SignInPageState extends State<SignInPage> {
                                 }
                               })),
                     ),
-
                     Expanded(
                         child: Align(
                       alignment: Alignment.bottomCenter,
@@ -136,7 +135,7 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  listener() {
+  listenerSignIn() {
     final st = userProvider.status;
     final user = userProvider.user;
     if (st == Status.loading) {
