@@ -102,3 +102,21 @@ final rdvs = {
   "finish": RdvStatus.finish,
   "rejected": RdvStatus.rejected,
 };
+
+Future<DateTime?> montrerDate(BuildContext context) async {
+  return await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(1900),
+    lastDate: DateTime(3000),
+    initialDatePickerMode: DatePickerMode.year,
+    initialEntryMode: DatePickerEntryMode.calendar,
+  );
+}
+
+Future<TimeOfDay?> montrerHeure(BuildContext context) async {
+  return await showTimePicker(
+    context: context,
+    initialTime: TimeOfDay.now(),
+  );
+}

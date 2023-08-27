@@ -78,6 +78,7 @@ class _RendezVousScreen extends State<RendezVousScreen> {
                             doctorName: e.motif,
                             specialite: 'Cardio',
                             status: rdvs[e.status] ?? RdvStatus.loading,
+                            id: e.id,
                           ),
                         ))
                     .toList(),

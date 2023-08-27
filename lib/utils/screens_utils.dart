@@ -10,14 +10,16 @@ enum Pages { dashboard, forum, rdv, profile }
 
 Map<Pages, Widget> pagesToWidget = {
   Pages.dashboard: const DashBoard(),
-  Pages.forum: const MyHomePage(title: '',),
+  Pages.forum: const MyHomePage(
+    title: '',
+  ),
   Pages.rdv: const RendezVousScreen(),
   Pages.profile: const Profile()
 };
 
 List<Map<String, dynamic>> bottonNavigationBarData = [
   {"icon": "home.png", "page": Pages.dashboard},
-  {"icon": "messages.png", "page": Pages.forum},
+  {"icon": "meeting.png", "page": Pages.forum},
   {"icon": "meeting.png", "page": Pages.rdv},
   {"icon": "person.png", "page": Pages.profile}
 ];

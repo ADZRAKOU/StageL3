@@ -1,4 +1,5 @@
 class Medecin {
+  int? id;
   String? nom;
   String? prenom;
   int? specialite;
@@ -9,6 +10,7 @@ class Medecin {
   String? adresse;
 
   Medecin({
+    required this.id,
     required this.specialite,
     required this.nom,
     required this.prenom,
@@ -21,8 +23,9 @@ class Medecin {
 
   factory Medecin.fromJson(Map<String, dynamic> json) {
     return Medecin(
-      nom: json['nom'],
-      prenom: json['prenom'],
+      id: json["id"],
+      nom: json['last_name'],
+      prenom: json['first_name'],
       specialite: json['medecin_specialite'] as int?,
       email: json['email'],
       genre: json['genre'],
@@ -34,13 +37,14 @@ class Medecin {
 
   Map<String, dynamic> toJson() {
     return {
-      'nom': nom,
-      'prenom': prenom,
-      'specialite': specialite,
+      'id': id,
+      'last_name': nom,
+      'first_name': prenom,
+      'medecin_specialite': specialite,
       'email': email,
       'genre': genre,
       'contact': contact,
-      'autreContact': autreContact,
+      'autre_contact': autreContact,
       'adresse': adresse,
     };
   }

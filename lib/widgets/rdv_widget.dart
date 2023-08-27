@@ -9,7 +9,15 @@ class RdvWidget extends StatelessWidget {
   final String? doctorName;
   final String specialite;
   final RdvStatus status;
-  const RdvWidget({super.key, this.hasMargin, required this.doctorName, required this.specialite, required this.status});
+  final int? id;
+  const RdvWidget({
+    super.key,
+    this.hasMargin,
+    required this.doctorName,
+    required this.specialite,
+    required this.status,
+    required this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,31 +46,47 @@ class RdvWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         TextWidget(
-                          data: doctorName??"Unknown",
+                          data: doctorName ?? "Unknown",
                           color: kBlackColor,
                           fontWeight: FontWeight.bold,
                         ),
                         RichText(
-                            text: TextSpan(children: [
-                          TextSpan(
-                              text: specialite,
-                              style: GoogleFonts.poppins(
-                                  color: kGreyColor, fontSize: 15)),
-                          TextSpan(
-                              text: ".",
-                              style: GoogleFonts.poppins(
-                                  color: kGreyColor, fontSize: 20)),
-                          TextSpan(
-                              text: status == RdvStatus.loading? " En cours": status == RdvStatus.rejected? "Rejetes": "Completes",
-                              style: GoogleFonts.poppins(
-                                  color: status == RdvStatus.loading? Colors.orange: status == RdvStatus.finish? Colors.green: Colors.red, fontSize: 15))
-                        ]))
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                  text: specialite,
+                                  style: GoogleFonts.poppins(
+                                      color: kGreyColor, fontSize: 15)),
+                              TextSpan(
+                                  text: ".",
+                                  style: GoogleFonts.poppins(
+                                      color: kGreyColor, fontSize: 20)),
+                              TextSpan(
+                                text: status == RdvStatus.loading
+                                    ? " En cours"
+                                    : status == RdvStatus.rejected
+                                        ? "Rejetes"
+                                        : "Completes",
+                                style: GoogleFonts.poppins(
+                                    color: status == RdvStatus.loading
+                                        ? Colors.orange
+                                        : status == RdvStatus.finish
+                                            ? Colors.green
+                                            : Colors.red,
+                                    fontSize: 15),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
-                    const Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                    )
+                    IconButton(
+                      onPressed: onCancel,
+                      icon: const Icon(
+                        Icons.cancel,
+                        color: Colors.red,
+                      ),
+                    ),
                   ],
                 )
               ],
@@ -71,5 +95,9 @@ class RdvWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  onCancel() {
+    // TODO: Modifier le rendez-vous en envoyant un status de canceled
   }
 }

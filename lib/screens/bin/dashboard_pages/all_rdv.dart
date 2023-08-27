@@ -50,6 +50,7 @@ class _AllRdvScreenState extends State<AllRdvScreen> {
                       doctorName: e["name"],
                       specialite: e["specialite"],
                       status: e["status"],
+                      id: e["id"],
                     ),
                   ))
             ],

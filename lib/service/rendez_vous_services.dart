@@ -28,6 +28,7 @@ class RendezVousServices {
   }
 
   Future<RendezVous?> save(RendezVous rendezVous) async {
+    print(rendezVous.toJson());
     try {
       var response = await http.post(
         kProdUri(endPoint: "core/rendez-vous/"),
@@ -37,7 +38,7 @@ class RendezVousServices {
       if (response.statusCode == 200) {
         return RendezVous.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
       } else {
-        print("Erreur de post ${response.statusCode}");
+        print("Erreur de post ${response.statusCode} ${response.body}");
         return null;
       }
     } catch (e) {

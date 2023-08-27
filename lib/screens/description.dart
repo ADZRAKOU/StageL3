@@ -1,24 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:masante228/models/model.dart';
 import 'package:masante228/models/specialite.dart';
 import 'package:masante228/screens/authentificate/medecin_login.dart';
+import 'package:masante228/screens/provider/user_provider.dart';
+import 'package:masante228/service/rendez_vous_services.dart';
 import 'package:masante228/utils/color_utils.dart';
 import 'package:masante228/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 import '../models/medecin.dart';
 import '../service/medecin_services.dart';
-
-const List<String> list = <String>[
-  'Docteur kodjo',
-  'Docteur komlan',
-  'Docteur koffi',
-  'Docteur amah',
-];
-const List<String> listVisiteTime = <String>[
-  'Lundi 8h-15h',
-  'Mercredi 8h-12h',
-  'Jeudi 8h-15h',
-  'Vendredi 8h-15h',
-];
 
 // ignore: must_be_immutable
 class DescriptionPage extends StatefulWidget {
@@ -30,34 +21,11 @@ class DescriptionPage extends StatefulWidget {
 
 class _DescriptionPageState extends State<DescriptionPage> {
   final medecinService = MedecinServices();
-  // List<dynamic> specialisations = [
-  //   {
-  //     'id': 1,
-  //     'name': 'Ophtamologie',
-  //     'description':
-  //         'Cette rubrique correspond à la rubrique ophtamologie.\nVous y trouverez des docteurs spécialistes dans le domaine des yeux.\nIls seront disponibles à ces horaires',
-  //     'icon': Icons.remove_red_eye,
-  //     'color': Colors.blue,
-  //   },
-  //   {
-  //     'id': 2,
-  //     'name': 'Dermatologie',
-  //     'description':
-  //         'Cette rubrique correspond à la rubrique ophtamologie.\nVous y trouverez des docteurs spécialistes dans le domaine des yeux.\nIls seront disponibles à ces horaires',
-  //     'icon': Icons.sick_rounded,
-  //     'color': Colors.orange,
-  //   },
-  //   {
-  //     'id': 3,
-  //     'name': 'Cardiologie',
-  //     'description':
-  //         'Cette rubrique correspond à la rubrique ophtamologie.\nVous y trouverez des docteurs spécialistes dans le domaine des yeux.\nIls seront disponibles à ces horaires',
-  //     'icon': Icons.heart_broken,
-  //     'color': Colors.red,
-  //   }
-  // ];
+  final rendezVousService = RendezVousServices();
+  late UserProvider userProvider;
 
-  DateTime dateAujourdhui = DateTime.now();
+  late DateTime? dateAujourdhui = null;
+  late TimeOfDay? heure = null;
   late Medecin? dropdownValue = null;
   String dropdownValue2 = "";
   List<Medecin> medecins = [];
@@ -67,6 +35,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
 
   @override
   void initState() {
+    userProvider = context.read<UserProvider>();
     fetchData();
     super.initState();
   }
@@ -198,31 +167,49 @@ class _DescriptionPageState extends State<DescriptionPage> {
                               const SizedBox(
                                 height: 15,
                               ),
-                              DropdownMenu<String>(
-                                inputDecorationTheme:
-                                    const InputDecorationTheme(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        25,
-                                      ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextButton(
+                                    onPressed: () => maDate(),
+                                    style: ButtonStyle(
+                                      elevation:
+                                          MaterialStateProperty.resolveWith(
+                                              (states) => 10),
+                                      backgroundColor:
+                                          MaterialStateProperty.resolveWith(
+                                              (states) => Colors.grey),
+                                      foregroundColor:
+                                          MaterialStateProperty.resolveWith(
+                                              (states) => Colors.black87),
+                                    ),
+                                    child: Text((dateAujourdhui == null)
+                                        ? "Choisir date"
+                                        : dateAujourdhui
+                                            .toString()
+                                            .split(" ")
+                                            .first),
+                                  ),
+                                  TextButton(
+                                    onPressed: () => monHeure(),
+                                    style: ButtonStyle(
+                                      elevation:
+                                          MaterialStateProperty.resolveWith(
+                                              (states) => 10),
+                                      backgroundColor:
+                                          MaterialStateProperty.resolveWith(
+                                              (states) => Colors.grey),
+                                      foregroundColor:
+                                          MaterialStateProperty.resolveWith(
+                                              (states) => Colors.black87),
+                                    ),
+                                    child: Text(
+                                      (heure == null)
+                                          ? "Choisir heure"
+                                          : heure!.format(context),
                                     ),
                                   ),
-                                ),
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                initialSelection: listVisiteTime.first,
-                                onSelected: (String? value) {
-                                  // This is called when the user selects an item.
-                                  setState(() {
-                                    dropdownValue2 = value!;
-                                  });
-                                },
-                                dropdownMenuEntries: listVisiteTime
-                                    .map<DropdownMenuEntry<String>>(
-                                        (String value) {
-                                  return DropdownMenuEntry<String>(
-                                      value: value, label: value);
-                                }).toList(),
+                                ],
                               ),
                               const SizedBox(
                                 height: 15,
@@ -243,7 +230,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: kPrimaryColor,
                                 ),
-                                onPressed: () {},
+                                onPressed: onPostRendezVous,
                                 child: const Text(
                                   'Prendre rendez vous',
                                   style: TextStyle(
@@ -278,5 +265,75 @@ class _DescriptionPageState extends State<DescriptionPage> {
     setState(() {
       loading = false;
     });
+  }
+
+  maDate() async {
+    dateAujourdhui = await montrerDate(context);
+    setState(() {
+      dateAujourdhui = dateAujourdhui;
+    });
+  }
+
+  monHeure() async {
+    heure = await montrerHeure(context);
+    setState(() {
+      heure = heure;
+    });
+  }
+
+  onPostRendezVous() async {
+    if (txtMotif.text.trim().isEmpty) {
+      kSnackBar(
+        context,
+        "Veuillez mettre le motif",
+        color: Colors.red,
+      );
+      return;
+    }
+    if (dropdownValue == null) {
+      kSnackBar(
+        context,
+        "Veuillez mettre le medecin",
+        color: Colors.red,
+      );
+      return;
+    }
+    if (dateAujourdhui == null || heure == null) {
+      kSnackBar(
+        context,
+        "Veuillez une bonne date et heure",
+        color: Colors.red,
+      );
+      return;
+    }
+    final _rendVous = RendezVous(
+      motif: txtMotif.text,
+      status: "en cours",
+      dateHeure: dateAujourdhui?.add(
+        Duration(
+          hours: heure!.hour,
+          minutes: heure!.minute,
+        ),
+      ),
+      medecin: dropdownValue?.id,
+      patient: userProvider.user?.id,
+    );
+    try {
+      kSnackBar(
+        context,
+        "Enregistrement en cours...",
+        color: Colors.orange,
+      );
+      await rendezVousService.save(_rendVous);
+      // ignore: use_build_context_synchronously
+      kSnackBar(context, "Enregistrement réussi !");
+    } catch (e) {
+      print(e);
+      kSnackBar(
+        context,
+        "Erreur de l'engistrement du rendez-vous",
+        color: Colors.red,
+      );
+    }
   }
 }

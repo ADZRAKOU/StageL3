@@ -5,7 +5,6 @@ class RendezVous {
   late DateTime? dateHeure;
   late int? medecin;
   late int? patient;
-  late int? specialite;
   RendezVous({
     this.id,
     this.motif,
@@ -13,7 +12,6 @@ class RendezVous {
     this.dateHeure,
     this.medecin,
     this.patient,
-    this.specialite,
   });
 
   factory RendezVous.fromJson(Map<String, dynamic> json) => RendezVous(
@@ -23,7 +21,6 @@ class RendezVous {
         dateHeure: DateTime.parse(json['date_heure'] as String),
         medecin: json['medecin'] as int?,
         patient: json['patient'] as int?,
-        specialite: json['specialite'] as int?,
       );
 
   Map<String, dynamic> toJson() {
@@ -33,7 +30,6 @@ class RendezVous {
     data['date_heure'] = dateHeure?.toIso8601String();
     data['medecin'] = medecin;
     data['patient'] = patient;
-    data['specialite'] = specialite;
     return data;
   }
 }

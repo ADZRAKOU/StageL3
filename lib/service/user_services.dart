@@ -6,9 +6,9 @@ import 'package:masante228/models/personne.dart';
 import 'package:masante228/models/specialite.dart';
 import 'package:masante228/utils/utils.dart';
 
-
 class UserServices {
   Future<void> signInUser({required String email}) async {
+    print(email);
     try {
       var response = await http.post(
           kProdUri(endPoint: 'accounts/user/sign-in/'),
@@ -56,6 +56,7 @@ class UserServices {
   }
 
   Future<Personne?> getInfos(String email) async {
+    print(email);
     try {
       var response = await http.get(
         kProdUri(endPoint: "accounts/patients/"),
@@ -95,10 +96,9 @@ class UserServices {
 
   Future<void> saveSpecialite(Specialite specialite) async {
     try {
-      final response =
-          await http.post(kProdUri(endPoint: 'core/specialites/'),
-              body: jsonEncode(specialite.toJon()),
-              headers: {"Content-Type": "application/json"});
+      final response = await http.post(kProdUri(endPoint: 'core/specialites/'),
+          body: jsonEncode(specialite.toJon()),
+          headers: {"Content-Type": "application/json"});
 
       //return jsonEncode(response.body)
     } catch (e) {

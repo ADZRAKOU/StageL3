@@ -39,7 +39,7 @@ class _DashBoardState extends State<DashBoard> {
     rendezVousProvider.addListener(rendezListener);
 
     Future.delayed(Duration.zero, () {
-       userProvider.getSpecialites();
+      userProvider.getSpecialites();
       rendezVousProvider.getAll();
     });
 
@@ -289,6 +289,7 @@ class _DashBoardState extends State<DashBoard> {
           doctorName: "Vide",
           specialite: "Vide",
           status: RdvStatus.finish,
+          id: 0,
         );
       } else {
         return PageView.builder(
@@ -300,6 +301,7 @@ class _DashBoardState extends State<DashBoard> {
               doctorName: rends[index].medecin.toString(),
               specialite: "Cardio",
               status: rdvs[rends[index].status]!,
+              id: rends[index].id,
             );
           },
         );
