@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:masante228/models/model.dart';
+import 'package:masante228/service/rendez_vous_services.dart';
 import 'package:masante228/utils/color_utils.dart';
 import 'package:masante228/utils/utils.dart';
 import 'package:masante228/widgets/text_widget.dart';
@@ -97,7 +99,11 @@ class RdvWidget extends StatelessWidget {
     );
   }
 
-  onCancel() {
-    // TODO: Modifier le rendez-vous en envoyant un status de canceled
+  onCancel() async {
+    try {
+      await RendezVousServices().update(id!);
+    } catch (e) {
+      print(e);
+    }
   }
 }

@@ -46,4 +46,43 @@ class RendezVousServices {
       rethrow;
     }
   }
+
+  Future<RendezVous?> getOne(int id) async {
+    try {
+      var response = await http.get(
+        kProdUri(endPoint: "core/rendez-vous/$id"),
+        headers: {'Content-Type': 'application/json'},
+      );
+      if (response.statusCode == 200) {
+        return RendezVous.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<RendezVous?> update(int id) async {
+    try {
+      var request = await getOne(id);
+      var json = request!.toJson();
+      json["status"] = "annuler";
+      var response = await http.put(
+        kProdUri(endPoint: "core/rendez-vous/$id"),
+        headers: {'Content-Type': 'application/json'},
+        body: json,
+      );
+      if (response.statusCode == 200) {
+        return RendezVous.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+      } else {
+        print("Erreur de post ${response.statusCode} ${response.body}");
+        throw Exception();
+      }
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
+  }
 }
